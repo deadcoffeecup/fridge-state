@@ -1,10 +1,14 @@
 import React from 'react';
 export const ProductsList = ({ products }) => {
-  products = Object.values(products);
+  for (const key in products) {
+    products[key]['id'] = key;
+  }
+  const arrProducts = Object.values(products);
+
   return (
     <div>
       <ul>
-        {products.map((product) => (
+        {arrProducts.map((product) => (
           <div key={product.id}>
             <li>{product.name}</li>
             <ul>
