@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { push, ref, onValue } from 'firebase/database';
+import { push, ref, onValue, remove } from 'firebase/database';
 
-import { database } from './firebaseConfig';
+import { database as db } from './firebaseConfig';
 import { ProductsList } from './ProductsList';
 import { Form } from './Form';
 
@@ -9,20 +9,23 @@ const App = () => {
   const [products, setProducts] = useState({});
 
   useEffect(() => {
-    onValue(ref(database), (snapshot) => {
+    onValue(ref(db), (snapshot) => {
       const data = snapshot.val();
       setProducts(data.products);
     });
   }, []);
 
   const handleAdd = (data) => {
-    push(ref(database, '/products'), data);
+    push(ref(db, '/products'), data);
+  };
+  const handleDelete = (id) => {
+    remove(ref(db, '/products/' + id));
   };
 
   return (
     <div>
       <Form handleAdd={handleAdd} />
-      <ProductsList products={products} />
+      <ProductsList handleDelete={handleDelete} products={products} />
     </div>
   );
 };

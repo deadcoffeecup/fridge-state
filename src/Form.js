@@ -19,6 +19,11 @@ export const Form = ({ handleAdd }) => {
     e.target.expireDate.value = '';
     e.target.category.value = '';
     handleAdd(product);
+    setProduct({
+      name: '',
+      expireDate: '',
+      category: '',
+    });
   };
   return (
     <form onSubmit={handleSubmit}>
