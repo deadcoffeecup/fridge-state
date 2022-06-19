@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const Form = () => {
+export const Form = ({ handleAdd }) => {
   const [product, setProduct] = useState({
     name: '',
     expireDate: '',
@@ -18,7 +18,7 @@ export const Form = () => {
     e.target.name.value = '';
     e.target.expireDate.value = '';
     e.target.category.value = '';
-    console.log(product);
+    handleAdd(product);
   };
   return (
     <form onSubmit={handleSubmit}>
