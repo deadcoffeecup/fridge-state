@@ -1,6 +1,6 @@
 import React from 'react';
-
 export const ProductsList = ({ products }) => {
+  products = Object.values(products);
   return (
     <div>
       <ul>
