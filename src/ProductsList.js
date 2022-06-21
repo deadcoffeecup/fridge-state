@@ -8,7 +8,7 @@ export const ProductsList = ({ products, handleDelete }) => {
   return (
     <div>
       <ul>
-        {arrOfProducts.map((product) => (
+        {arrOfProducts?.map((product) => (
           <div key={product.id}>
             <li>{product.name}</li>
             <ul>
