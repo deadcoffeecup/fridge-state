@@ -12,7 +12,6 @@ export const AddForm = ({ handleAdd }) => {
       [name]: value,
     }));
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     e.target.name.value = '';

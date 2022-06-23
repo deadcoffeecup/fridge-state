@@ -2,11 +2,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { AuthProvider } from '../context/AuthContext';
 
+import { RequireAuth } from './RequireAuth';
+
 import { Dashboard } from './Dashboard';
 import { Signup } from './Signup';
 import { Login } from './Login';
 import { NotFound } from './NotFound.js';
-import { RequireAuth } from './RequireAuth';
 
 const App = () => {
   return (

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { push, ref, onValue, remove } from 'firebase/database';
 
 import { database as db } from '../firebaseConfig';
+import { useAuth } from '../context/AuthContext';
+
 import { ProductsList } from './ProductsList';
 import { AddForm } from './AddForm';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { async } from '@firebase/util';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState({});

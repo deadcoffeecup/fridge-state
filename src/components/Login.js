@@ -1,19 +1,21 @@
 import React, { useRef, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useAuth } from '../context/AuthContext';
+
 export const Login = () => {
+  const { login } = useAuth();
+
+  const navigate = useNavigate();
+
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login } = useAuth();
-  const navigate = useNavigate();
 
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
       setError('');
       setIsLoading(true);
