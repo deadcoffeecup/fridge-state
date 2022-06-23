@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 export const Signup = () => {
   const emailRef = useRef();
@@ -54,7 +55,7 @@ export const Signup = () => {
         </form>
       </div>
       <div>
-        Already singed up? <a href='/'>Log in</a>
+        Already singed up? <Link to='/login'>Log in</Link>
       </div>
     </div>
   );
