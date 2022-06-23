@@ -6,7 +6,7 @@ export const Signup = () => {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
-  const { signup, currentUser } = useAuth();
+  const { signup } = useAuth();
 
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -35,9 +35,6 @@ export const Signup = () => {
     <div>
       <div>
         <h2>Sign up</h2>
-        {currentUser && console.log(currentUser)}
-        {currentUser && currentUser.email}
-
         {error && <div>{error}</div>}
         <form onSubmit={handleSubmit}>
           <label htmlFor='email'>email</label>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const Form = ({ handleAdd }) => {
+export const AddForm = ({ handleAdd }) => {
   const [product, setProduct] = useState({
     name: '',
     expireDate: '',
