@@ -32,8 +32,10 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      !ref(db, '/' + currentUser.uid) &&
-        set(ref(db, '/' + currentUser.uid + '/products'));
+      if (currentUser) {
+        !ref(db, '/' + currentUser.uid) &&
+          set(ref(db, '/' + currentUser.uid + '/products'));
+      }
       setCurrentUser(user);
       setLoading(false);
     });

@@ -16,13 +16,12 @@ export const Signup = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      return setError('passwords do not match');
-    }
-    if (passwordRef.current.value.lenght < 8) {
+    if ([...passwordRef.current.value].length < 8) {
       return setError(
         'password has to be at least 8 character and uppercase and lowercase and digit and special char'
       );
+    } else if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      return setError('passwords do not match');
     }
     try {
       setError('');
