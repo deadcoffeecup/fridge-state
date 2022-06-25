@@ -10,22 +10,25 @@ import { AddForm } from './AddForm';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState({});
-  const { logout } = useAuth();
+  const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribeFromDb = onValue(ref(db), (snapshot) => {
-      const data = snapshot.val();
-      setProducts(data.products);
-    });
+    const unsubscribeFromDb = onValue(
+      ref(db, '/' + currentUser.uid),
+      (snapshot) => {
+        const data = snapshot.val();
+        data === null ? setProducts({}) : setProducts(data.products);
+      }
+    );
     return unsubscribeFromDb;
-  }, []);
+  }, [currentUser]);
 
   const handleAdd = (product) => {
-    push(ref(db, '/products'), product);
+    push(ref(db, '/' + currentUser.uid + '/products'), product);
   };
   const handleDelete = (id) => {
-    remove(ref(db, '/products/' + id));
+    remove(ref(db, '/' + currentUser.uid + '/products/' + id));
   };
 
   async function handleLogout() {
