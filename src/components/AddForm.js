@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
 
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input,
+  Button,
+  Select,
+} from '@chakra-ui/react';
+
 export const AddForm = ({ handleAdd }) => {
   const [product, setProduct] = useState({
     name: '',
@@ -26,18 +36,29 @@ export const AddForm = ({ handleAdd }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor='name'>Name:</label>
-      <input onChange={handleChange} name='name' type='text' />
-      <label htmlFor='expireDate'>Expire Date</label>
-      <input onChange={handleChange} name='expireDate' type='date' />
-      <label htmlFor='category'>Category</label>
-      <select defaultValue='' onChange={handleChange} name='category'>
-        <option value='diary'>diary</option>
-        <option value='meat'>meat</option>
-        <option value='vegetables'>vegetables</option>
-        <option value='fruits'>fruits</option>
-      </select>
-      <button type='submit'>Add</button>
+      <FormControl>
+        <FormLabel htmlFor='name'>Name:</FormLabel>
+        <Input onChange={handleChange} name='name' type='text' />
+      </FormControl>
+      <FormControl>
+        <FormLabel htmlFor='expireDate'>Expire Date</FormLabel>
+        <Input onChange={handleChange} name='expireDate' type='date' />
+      </FormControl>
+      <FormControl>
+        <FormLabel htmlFor='category'>Category</FormLabel>
+        <Select
+          placeholder='Select option'
+          onChange={handleChange}
+          name='category'
+        >
+          <option value='diary'>diary</option>
+          <option value='meat'>meat</option>
+          <option value='vegetables'>vegetables</option>
+          <option value='fruits'>fruits</option>
+        </Select>
+      </FormControl>
+
+      <Button type='submit'>Add</Button>
     </form>
   );
 };

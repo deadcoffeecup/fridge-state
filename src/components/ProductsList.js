@@ -1,4 +1,14 @@
 import React from 'react';
+
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
+} from '@chakra-ui/react';
+
 export const ProductsList = ({ products, handleDelete }) => {
   for (const key in products) {
     products[key]['id'] = key;
@@ -6,19 +16,24 @@ export const ProductsList = ({ products, handleDelete }) => {
   const arrOfProducts = Object.values(products);
 
   return (
-    <div>
-      <ul>
-        {arrOfProducts?.map((product) => (
-          <div key={product.id}>
-            <li>{product.name}</li>
-            <ul>
-              <li>{product.expireDate}</li>
-              <li>{product.category}</li>
-            </ul>
+    <Accordion allowMultiple>
+      {arrOfProducts?.map((product) => (
+        <AccordionItem key={product.id}>
+          <h2>
+            <AccordionButton>
+              <Box flex='1' textAlign='left'>
+                {product.name}
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel>
+            <Box>{product.expireDate}</Box>
+            <Box>{product.category}</Box>
             <button onClick={() => handleDelete(product.id)}>Delete</button>
-          </div>
-        ))}
-      </ul>
-    </div>
+          </AccordionPanel>
+        </AccordionItem>
+      ))}
+    </Accordion>
   );
 };

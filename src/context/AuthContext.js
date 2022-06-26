@@ -5,8 +5,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { set, ref } from 'firebase/database';
-import { database as db } from '../firebaseConfig';
 
 import { auth } from '../firebaseConfig';
 
@@ -32,10 +30,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (currentUser) {
-        !ref(db, '/' + currentUser.uid) &&
-          set(ref(db, '/' + currentUser.uid + '/products'));
-      }
       setCurrentUser(user);
       setLoading(false);
     });

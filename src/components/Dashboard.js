@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { push, ref, onValue, remove } from 'firebase/database';
+import { Button } from '@chakra-ui/react';
 
 import { database as db } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
@@ -42,7 +43,7 @@ export const Dashboard = () => {
 
   return (
     <div>
-      <button onClick={handleLogout}>Log out</button>
+      <Button onClick={handleLogout}>Log out</Button>
       <AddForm handleAdd={handleAdd} />
       <ProductsList handleDelete={handleDelete} products={products} />
     </div>
