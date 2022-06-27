@@ -1,5 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Container,
+  Input,
+  Button,
+  Heading,
+} from '@chakra-ui/react';
 
 import { useAuth } from '../context/AuthContext';
 
@@ -33,30 +42,33 @@ export const Signup = () => {
     setIsLoading(false);
   }
   return (
-    <div>
-      <div>
+    <Container>
+      <Container>
         <h2>Sign up</h2>
-        {error && <div>{error}</div>}
+        {error && <FormErrorMessage>{error}</FormErrorMessage>}
         <form onSubmit={handleSubmit}>
-          <label htmlFor='email'>email</label>
-          <input ref={emailRef} type='email' name='email' id='email' />
-          <label htmlFor='password'>Password</label>
-          <input ref={passwordRef} type='password' name='' id='password' />
-          <label htmlFor='confirmPassword'>Confirm Password</label>
-          <input
+          <FormLabel htmlFor='email'>email</FormLabel>
+          <Input ref={emailRef} type='email' name='email' id='email' />
+          <FormLabel htmlFor='password'>Password</FormLabel>
+          <Input ref={passwordRef} type='password' name='' id='password' />
+          <FormLabel htmlFor='confirmPassword'>Confirm Password</FormLabel>
+          <Input
             ref={confirmPasswordRef}
             type='password'
             name='confirmPassword'
             id='confirmPassword'
           />
-          <button disabled={isLoading} type='submit'>
+          <Button disabled={isLoading} type='submit'>
             Sign up!
-          </button>
+          </Button>
         </form>
-      </div>
-      <div>
-        Already singed up? <Link to='/login'>Log in</Link>
-      </div>
-    </div>
+      </Container>
+      <Container>
+        Already singed up?{' '}
+        <Link to='/login'>
+          <Button>Log in</Button>
+        </Link>
+      </Container>
+    </Container>
   );
 };
