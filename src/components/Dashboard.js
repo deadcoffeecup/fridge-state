@@ -1,35 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { push, ref, onValue, remove } from 'firebase/database';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { Button, Container } from '@chakra-ui/react';
 
-import { database as db } from '../firebaseConfig';
+import { db } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
 
 import { ProductsList } from './ProductsList';
 import { AddForm } from './AddForm';
 
 export const Dashboard = () => {
-  const [products, setProducts] = useState({});
+  const [products, setProducts] = useState([]);
   const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
+  const colRef = collection(db, 'users');
 
   useEffect(() => {
-    const unsubscribeFromDb = onValue(
-      ref(db, '/' + currentUser.uid),
-      (snapshot) => {
-        const data = snapshot.val();
-        data === null ? setProducts({}) : setProducts(data.products);
-      }
-    );
-    return unsubscribeFromDb;
-  }, [currentUser]);
+    const unsubscribe = async () =>
+      await getDocs(collection(db, 'users')).then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          setProducts((prev) => [...prev, { ...doc.data(), id: doc.id }]);
+        });
+      });
+
+    return unsubscribe;
+  }, []);
 
   const handleAdd = (product) => {
-    push(ref(db, '/' + currentUser.uid + '/products'), product);
+    // push(ref(db, '/' + currentUser.uid + '/products'), product);
+    addDoc(collection(db, 'users'), product);
   };
   const handleDelete = (id) => {
-    remove(ref(db, '/' + currentUser.uid + '/products/' + id));
+    // remove(ref(db, '/' + currentUser.uid + '/products/' + id));
   };
 
   async function handleLogout() {
