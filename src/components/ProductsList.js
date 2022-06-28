@@ -12,9 +12,9 @@ import {
 } from '@chakra-ui/react';
 
 export const ProductsList = ({ products, handleDelete }) => {
-  for (const key in products) {
-    products[key]['id'] = key;
-  }
+  // for (const key in products) {
+  //   products[key]['id'] = key;
+  // }
   const arrOfProducts = Object.values(products);
 
   return (

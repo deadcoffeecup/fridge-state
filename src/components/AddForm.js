@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import {
   FormControl,
@@ -10,49 +10,40 @@ import {
   Button,
   Select,
 } from '@chakra-ui/react';
+import { Timestamp } from 'firebase/firestore';
 
 export const AddForm = ({ handleAdd }) => {
-  const [product, setProduct] = useState({
-    name: '',
-    expireDate: '',
-    category: '',
-  });
-  const handleChange = ({ target: { name, value } }) => {
-    setProduct((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const nameRef = useRef();
+  const expireDateRef = useRef();
+  const categoryRef = useRef();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.target.name.value = '';
-    e.target.expireDate.value = '';
-    e.target.category.value = '';
-    handleAdd(product);
-    setProduct({
-      name: '',
-      expireDate: '',
-      category: '',
+    let date = new Date(expireDateRef.current.value);
+    date = Timestamp.fromDate(date);
+    handleAdd({
+      name: nameRef.current.value,
+      expireDate: new Timestamp(date, 0),
+      category: categoryRef.current.value,
     });
+    nameRef.current.value = '';
+    expireDateRef.current.value = '';
+    categoryRef.current.value = '';
   };
   return (
     <Container>
       <form onSubmit={handleSubmit}>
         <FormControl>
           <FormLabel htmlFor='name'>Name:</FormLabel>
-          <Input onChange={handleChange} name='name' type='text' />
+          <Input ref={nameRef} name='name' type='text' />
         </FormControl>
         <FormControl>
           <FormLabel htmlFor='expireDate'>Expire Date</FormLabel>
-          <Input onChange={handleChange} name='expireDate' type='date' />
+          <Input ref={expireDateRef} name='expireDate' type='date' />
         </FormControl>
         <FormControl>
           <FormLabel htmlFor='category'>Category</FormLabel>
-          <Select
-            placeholder='Select option'
-            onChange={handleChange}
-            name='category'
-          >
+          <Select placeholder='Select option' name='category' ref={categoryRef}>
             <option value='diary'>diary</option>
             <option value='meat'>meat</option>
             <option value='vegetables'>vegetables</option>
