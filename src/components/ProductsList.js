@@ -31,7 +31,10 @@ export const ProductsList = ({ products, handleDelete }) => {
               </AccordionButton>
             </h2>
             <AccordionPanel>
-              <Box>{product.expireDate}</Box>
+              <Box>
+                {product.expireDate &&
+                  product.expireDate.toDate().toDateString()}
+              </Box>
               <Box>{product.category}</Box>
               <Button onClick={() => handleDelete(product.id)}>Delete</Button>
             </AccordionPanel>
