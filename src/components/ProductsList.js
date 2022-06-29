@@ -12,9 +12,6 @@ import {
 } from '@chakra-ui/react';
 
 export const ProductsList = ({ products, handleDelete }) => {
-  // for (const key in products) {
-  //   products[key]['id'] = key;
-  // }
   const arrOfProducts = Object.values(products);
 
   return (
@@ -31,7 +28,7 @@ export const ProductsList = ({ products, handleDelete }) => {
               </AccordionButton>
             </h2>
             <AccordionPanel>
-              <Box>
+              <Box flex='1' textAlign='left'>
                 {product.expireDate &&
                   product.expireDate.toDate().toDateString()}
               </Box>

@@ -1,10 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Container,
   Input,
   Button,
@@ -19,11 +17,9 @@ export const AddForm = ({ handleAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let date = new Date(expireDateRef.current.value);
-    date = Timestamp.fromDate(date);
     handleAdd({
       name: nameRef.current.value,
-      expireDate: new Timestamp(date, 0),
+      expireDate: Timestamp.fromDate(new Date(expireDateRef.current.value)),
       category: categoryRef.current.value,
     });
     nameRef.current.value = '';
@@ -39,7 +35,7 @@ export const AddForm = ({ handleAdd }) => {
         </FormControl>
         <FormControl>
           <FormLabel htmlFor='expireDate'>Expire Date</FormLabel>
-          <Input ref={expireDateRef} name='expireDate' type='date' />
+          <Input required ref={expireDateRef} name='expireDate' type='date' />
         </FormControl>
         <FormControl>
           <FormLabel htmlFor='category'>Category</FormLabel>
