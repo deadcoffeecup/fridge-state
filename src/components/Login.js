@@ -13,7 +13,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 
 export const Login = () => {
-  const { login } = useAuth();
+  const { login, currentUser } = useAuth();
 
   const navigate = useNavigate();
 
@@ -22,6 +22,9 @@ export const Login = () => {
 
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  if (currentUser) {
+    navigate('/', { replace: true });
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   FormControl,
   FormLabel,
@@ -9,8 +9,10 @@ import {
   Button,
   Heading,
 } from '@chakra-ui/react';
+import { doc, setDoc } from 'firebase/firestore';
 
 import { useAuth } from '../context/AuthContext';
+import { db } from '../firebaseConfig';
 
 export const Signup = () => {
   const emailRef = useRef();
@@ -18,6 +20,7 @@ export const Signup = () => {
   const confirmPasswordRef = useRef();
 
   const { signup } = useAuth();
+  const navigate = useNavigate();
 
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +39,7 @@ export const Signup = () => {
       setError('');
       setIsLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
+      navigate('/', { replace: true });
     } catch {
       setError('failed to create an account');
     }
@@ -47,17 +51,23 @@ export const Signup = () => {
         <h2>Sign up</h2>
         {error && <FormErrorMessage>{error}</FormErrorMessage>}
         <form onSubmit={handleSubmit}>
-          <FormLabel htmlFor='email'>email</FormLabel>
-          <Input ref={emailRef} type='email' name='email' id='email' />
-          <FormLabel htmlFor='password'>Password</FormLabel>
-          <Input ref={passwordRef} type='password' name='' id='password' />
-          <FormLabel htmlFor='confirmPassword'>Confirm Password</FormLabel>
-          <Input
-            ref={confirmPasswordRef}
-            type='password'
-            name='confirmPassword'
-            id='confirmPassword'
-          />
+          <FormControl>
+            <FormLabel htmlFor='email'>email</FormLabel>
+            <Input ref={emailRef} type='email' name='email' id='email' />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor='password'>Password</FormLabel>
+            <Input ref={passwordRef} type='password' name='' id='password' />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor='confirmPassword'>Confirm Password</FormLabel>
+            <Input
+              ref={confirmPasswordRef}
+              type='password'
+              name='confirmPassword'
+              id='confirmPassword'
+            />
+          </FormControl>
           <Button disabled={isLoading} type='submit'>
             Sign up!
           </Button>

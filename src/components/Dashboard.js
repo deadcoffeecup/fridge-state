@@ -19,9 +19,10 @@ export const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
+  const productsColRef = collection(db, 'users', currentUser.uid, 'products');
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'users'), (snapshot) => {
+    const unsubscribe = onSnapshot(productsColRef, (snapshot) => {
       const productsArr = [];
       snapshot.docs.forEach((doc) => {
         productsArr.push({ ...doc.data(), id: doc.id });
@@ -30,13 +31,13 @@ export const Dashboard = () => {
     });
 
     return unsubscribe;
-  }, []);
+  }, [productsColRef]);
 
   const handleAdd = (product) => {
-    addDoc(collection(db, 'users'), product);
+    addDoc(productsColRef, product);
   };
   const handleDelete = (id) => {
-    deleteDoc(doc(db, 'users', id));
+    deleteDoc(doc(db, 'users', currentUser.uid, 'products', id));
   };
 
   async function handleLogout() {
