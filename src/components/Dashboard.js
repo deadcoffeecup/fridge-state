@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addDoc, collection, onSnapshot } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+} from 'firebase/firestore';
 import { Button, Container } from '@chakra-ui/react';
 
 import { db } from '../firebaseConfig';
@@ -30,7 +36,7 @@ export const Dashboard = () => {
     addDoc(collection(db, 'users'), product);
   };
   const handleDelete = (id) => {
-    // need to do
+    deleteDoc(doc(db, 'users', id));
   };
 
   async function handleLogout() {
