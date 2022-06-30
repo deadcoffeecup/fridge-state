@@ -7,6 +7,7 @@ import {
   onSnapshot,
   query,
   setDoc,
+  Timestamp,
   where,
 } from 'firebase/firestore';
 import { Button, Box, Container, Text, Flex } from '@chakra-ui/react';
@@ -44,10 +45,11 @@ export const Dashboard = () => {
   const handleAdd = (product) => {
     addDoc(productsColRef, product);
   };
-  const handleEatFlag = (product) => {
+  const handleFlag = (product, mode) => {
     setDoc(doc(db, 'users', currentUser.uid, 'products', product.id), {
       ...product,
-      isEaten: true,
+      [mode]: true,
+      removeFromFridgeTime: Timestamp.fromDate(new Date()),
     });
   };
 
@@ -94,7 +96,7 @@ export const Dashboard = () => {
 
         <AddForm handleAdd={handleAdd} />
 
-        <ProductsList handleEatFlag={handleEatFlag} products={products} />
+        <ProductsList handleFlag={handleFlag} products={products} />
       </Container>
     </Box>
   );
