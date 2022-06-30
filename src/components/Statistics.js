@@ -60,23 +60,31 @@ export const Statistics = () => {
       bg={'gray.700'}
     >
       <Container>
-        <Box
-          display={'flex'}
+        <Flex
           flex={1}
-          justifyContent={'flex-end'}
-          alignItems={'center'}
+          flexDirection={'column'}
+          justifyContent={'center'}
+          alignItems={'flex-end'}
           textAlign={'right'}
           marginBottom={'10'}
         >
-          <Text>Hello {currentUser.displayName || 'friend'}</Text>
-          <Button colorScheme={'teal'} size={'xs'} onClick={handleLogout}>
-            Log out
+          <Flex flexDirection={'row'}>
+            <Text>Hello {currentUser.displayName || 'friend'}</Text>
+            <Button colorScheme={'teal'} size={'xs'} onClick={handleLogout}>
+              Log out
+            </Button>
+          </Flex>
+          <Button
+            colorScheme={'teal'}
+            size={'xs'}
+            onClick={() => navigate('/', { replace: true })}
+          >
+            Back
           </Button>
-
-          <Button onClick={() => navigate('/', { replace: true })}>Back</Button>
-        </Box>
+        </Flex>
 
         <Container>
+          <Heading>Statistics</Heading>
           <Accordion
             border='2px'
             borderColor='teal.300'

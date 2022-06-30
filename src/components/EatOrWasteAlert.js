@@ -33,7 +33,7 @@ export default function EatOrWasteAlert({ handleFlag, product }) {
         <AlertDialogContent>
           <AlertDialogHeader>Wait a sec...</AlertDialogHeader>
           <AlertDialogCloseButton />
-          <AlertDialogBody>Did you eat or waste it? </AlertDialogBody>
+          <AlertDialogBody>Have you eaten or wasted it? </AlertDialogBody>
           <AlertDialogFooter>
             <Button as={Box} ref={cancelRef} size={'sm'} onClick={onClose}>
               Cancel
