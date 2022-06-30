@@ -7,23 +7,42 @@ import {
   AccordionPanel,
   AccordionIcon,
   Box,
-  Container,
   Button,
+  Flex,
+  Container,
 } from '@chakra-ui/react';
 
-export const ProductsList = ({ products, handleDelete }) => {
+export const ProductsList = ({ products, handleEatFlag }) => {
   const arrOfProducts = Object.values(products);
 
   return (
     <Container>
-      <Accordion allowMultiple>
+      <Accordion
+        border='2px'
+        borderColor='teal.300'
+        borderRadius={'xl'}
+        allowMultiple
+      >
         {arrOfProducts?.map((product) => (
-          <AccordionItem key={product.id}>
+          <AccordionItem borderRadius={'xl'} key={product.id}>
             <h2>
               <AccordionButton>
-                <Box flex='1' textAlign='left'>
+                <Flex
+                  justifyContent={'space-between'}
+                  flex='1'
+                  textAlign='left'
+                >
                   {product.name}
-                </Box>
+                  <Button
+                    as={Box}
+                    size={'sm'}
+                    colorScheme={'teal'}
+                    borderRadius={'xl'}
+                    onClick={() => handleEatFlag(product)}
+                  >
+                    Eat
+                  </Button>
+                </Flex>
                 <AccordionIcon />
               </AccordionButton>
             </h2>
@@ -33,7 +52,6 @@ export const ProductsList = ({ products, handleDelete }) => {
                   product.expireDate.toDate().toDateString()}
               </Box>
               <Box>{product.category}</Box>
-              <Button onClick={() => handleDelete(product.id)}>Delete</Button>
             </AccordionPanel>
           </AccordionItem>
         ))}

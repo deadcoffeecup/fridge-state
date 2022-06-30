@@ -8,11 +8,10 @@ import {
   Input,
   Button,
   Heading,
+  Box,
 } from '@chakra-ui/react';
-import { doc, setDoc } from 'firebase/firestore';
 
 import { useAuth } from '../context/AuthContext';
-import { db } from '../firebaseConfig';
 
 export const Signup = () => {
   const emailRef = useRef();
@@ -46,9 +45,14 @@ export const Signup = () => {
     setIsLoading(false);
   }
   return (
-    <Container>
+    <Box
+      color={'white'}
+      width={'calc(100vw)'}
+      height={'calc(100vh)'}
+      bg={'gray.700'}
+    >
       <Container>
-        <h2>Sign up</h2>
+        <Heading>Sign up</Heading>
         {error && <FormErrorMessage>{error}</FormErrorMessage>}
         <form onSubmit={handleSubmit}>
           <FormControl>
@@ -68,7 +72,12 @@ export const Signup = () => {
               id='confirmPassword'
             />
           </FormControl>
-          <Button disabled={isLoading} type='submit'>
+          <Button
+            colorScheme={'teal'}
+            size={'xs'}
+            disabled={isLoading}
+            type='submit'
+          >
             Sign up!
           </Button>
         </form>
@@ -76,9 +85,11 @@ export const Signup = () => {
       <Container>
         Already singed up?{' '}
         <Link to='/login'>
-          <Button>Log in</Button>
+          <Button colorScheme={'teal'} size={'xs'}>
+            Log in
+          </Button>
         </Link>
       </Container>
-    </Container>
+    </Box>
   );
 };

@@ -8,6 +8,7 @@ import {
   Input,
   Button,
   Heading,
+  Box,
 } from '@chakra-ui/react';
 
 import { useAuth } from '../context/AuthContext';
@@ -39,7 +40,13 @@ export const Login = () => {
     setIsLoading(false);
   }
   return (
-    <Container>
+    <Box
+      color={'white'}
+      width={'calc(100vw)'}
+      height={'calc(100vh)'}
+      bg={'gray.700'}
+    >
+      {' '}
       <Container>
         <Heading>Log in</Heading>
         {error && <FormErrorMessage>{error}</FormErrorMessage>}
@@ -52,7 +59,12 @@ export const Login = () => {
             <FormLabel htmlFor='password'>Password</FormLabel>
             <Input ref={passwordRef} type='password' name='' id='password' />
           </FormControl>
-          <Button disabled={isLoading} type='submit'>
+          <Button
+            colorScheme={'teal'}
+            size={'xs'}
+            disabled={isLoading}
+            type='submit'
+          >
             Login
           </Button>
         </form>
@@ -60,9 +72,11 @@ export const Login = () => {
       <Container>
         Need an account?{' '}
         <Link to='/signup'>
-          <Button>Sign up!</Button>
+          <Button colorScheme={'teal'} size={'xs'}>
+            Sign up!
+          </Button>
         </Link>
       </Container>
-    </Container>
+    </Box>
   );
 };

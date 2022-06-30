@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import {
   addDoc,
   collection,
-  deleteDoc,
   doc,
   onSnapshot,
+  query,
+  setDoc,
+  where,
 } from 'firebase/firestore';
-import { Button, Container } from '@chakra-ui/react';
+import { Button, Box, Container, Text } from '@chakra-ui/react';
 
 import { db } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
@@ -19,25 +21,34 @@ export const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
+
   const productsColRef = collection(db, 'users', currentUser.uid, 'products');
+  const q = query(productsColRef, where('isEaten', '==', false));
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(productsColRef, (snapshot) => {
-      const productsArr = [];
-      snapshot.docs.forEach((doc) => {
-        productsArr.push({ ...doc.data(), id: doc.id });
-        setProducts([...productsArr]);
-      });
-    });
+    const unsubscribe = onSnapshot(
+      q,
+      { includeMetadataChanges: true },
+      (snapshot) => {
+        const productsArr = [];
+        snapshot.docs.forEach((doc) => {
+          productsArr.push({ ...doc.data(), id: doc.id });
+          setProducts([...productsArr]);
+        });
+      }
+    );
 
     return unsubscribe;
-  }, [productsColRef]);
+  }, [q]);
 
   const handleAdd = (product) => {
     addDoc(productsColRef, product);
   };
-  const handleDelete = (id) => {
-    deleteDoc(doc(db, 'users', currentUser.uid, 'products', id));
+  const handleEatFlag = (product) => {
+    setDoc(doc(db, 'users', currentUser.uid, 'products', product.id), {
+      ...product,
+      isEaten: true,
+    });
   };
 
   async function handleLogout() {
@@ -50,12 +61,31 @@ export const Dashboard = () => {
   }
 
   return (
-    <Container>
-      <Button onClick={handleLogout}>Log out</Button>
+    <Box
+      color={'white'}
+      width={'calc(100vw)'}
+      height={'calc(100vh)'}
+      bg={'gray.700'}
+    >
+      <Container>
+        <Box
+          display={'flex'}
+          flex={1}
+          justifyContent={'flex-end'}
+          alignItems={'center'}
+          textAlign={'right'}
+          marginBottom={'10'}
+        >
+          <Text>Hello {currentUser.displayName || 'friend'}</Text>
+          <Button colorScheme={'teal'} size={'xs'} onClick={handleLogout}>
+            Log out
+          </Button>
+        </Box>
 
-      <AddForm handleAdd={handleAdd} />
+        <AddForm handleAdd={handleAdd} />
 
-      <ProductsList handleDelete={handleDelete} products={products} />
-    </Container>
+        <ProductsList handleEatFlag={handleEatFlag} products={products} />
+      </Container>
+    </Box>
   );
 };
