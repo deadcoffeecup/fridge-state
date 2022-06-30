@@ -9,7 +9,7 @@ import {
   setDoc,
   where,
 } from 'firebase/firestore';
-import { Button, Box, Container, Text } from '@chakra-ui/react';
+import { Button, Box, Container, Text, Flex } from '@chakra-ui/react';
 
 import { db } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
@@ -68,19 +68,29 @@ export const Dashboard = () => {
       bg={'gray.700'}
     >
       <Container>
-        <Box
-          display={'flex'}
+        <Flex
+          flexDirection={'column'}
           flex={1}
           justifyContent={'flex-end'}
-          alignItems={'center'}
+          alignItems={'flex-end'}
           textAlign={'right'}
           marginBottom={'10'}
         >
-          <Text>Hello {currentUser.displayName || 'friend'}</Text>
-          <Button colorScheme={'teal'} size={'xs'} onClick={handleLogout}>
-            Log out
+          <Flex flexDirection={'row'}>
+            <Text>Hello {currentUser.displayName || 'friend'}</Text>
+
+            <Button colorScheme={'teal'} size={'xs'} onClick={handleLogout}>
+              Log out
+            </Button>
+          </Flex>
+          <Button
+            colorScheme={'teal'}
+            size={'xs'}
+            onClick={() => navigate('/statistics', { replace: true })}
+          >
+            Statistics
           </Button>
-        </Box>
+        </Flex>
 
         <AddForm handleAdd={handleAdd} />
 
