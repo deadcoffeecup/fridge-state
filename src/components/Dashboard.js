@@ -7,15 +7,17 @@ import {
   onSnapshot,
   query,
   setDoc,
+  Timestamp,
   where,
 } from 'firebase/firestore';
-import { Button, Box, Container, Text } from '@chakra-ui/react';
+import { Button, Box, Container, Text, Flex } from '@chakra-ui/react';
 
 import { db } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
 
 import { ProductsList } from './ProductsList';
 import { AddForm } from './AddForm';
+import { AddByPhoto } from './AddByPhoto';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
@@ -23,7 +25,7 @@ export const Dashboard = () => {
   const navigate = useNavigate();
 
   const productsColRef = collection(db, 'users', currentUser.uid, 'products');
-  const q = query(productsColRef, where('isEaten', '==', false));
+  const q = query(productsColRef, where('isEaten' || 'isWasted', '==', false));
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -44,10 +46,11 @@ export const Dashboard = () => {
   const handleAdd = (product) => {
     addDoc(productsColRef, product);
   };
-  const handleEatFlag = (product) => {
+  const handleFlag = (product, mode) => {
     setDoc(doc(db, 'users', currentUser.uid, 'products', product.id), {
       ...product,
-      isEaten: true,
+      [mode]: true,
+      removeFromFridgeTime: Timestamp.fromDate(new Date()),
     });
   };
 
@@ -68,23 +71,34 @@ export const Dashboard = () => {
       bg={'gray.700'}
     >
       <Container>
-        <Box
-          display={'flex'}
+        <AddByPhoto />
+        <Flex
+          flexDirection={'column'}
           flex={1}
           justifyContent={'flex-end'}
-          alignItems={'center'}
+          alignItems={'flex-end'}
           textAlign={'right'}
           marginBottom={'10'}
         >
-          <Text>Hello {currentUser.displayName || 'friend'}</Text>
-          <Button colorScheme={'teal'} size={'xs'} onClick={handleLogout}>
-            Log out
+          <Flex flexDirection={'row'}>
+            <Text>Hello {currentUser.displayName || 'friend'}</Text>
+
+            <Button colorScheme={'teal'} size={'xs'} onClick={handleLogout}>
+              Log out
+            </Button>
+          </Flex>
+          <Button
+            colorScheme={'teal'}
+            size={'xs'}
+            onClick={() => navigate('/statistics', { replace: true })}
+          >
+            Statistics
           </Button>
-        </Box>
+        </Flex>
 
         <AddForm handleAdd={handleAdd} />
 
-        <ProductsList handleEatFlag={handleEatFlag} products={products} />
+        <ProductsList handleFlag={handleFlag} products={products} />
       </Container>
     </Box>
   );

@@ -9,6 +9,7 @@ import { Dashboard } from './Dashboard';
 import { Signup } from './Signup';
 import { Login } from './Login';
 import { NotFound } from './NotFound.js';
+import { Statistics } from './Statistics';
 
 const colors = {
   brand: {
@@ -31,6 +32,14 @@ const App = () => {
               element={
                 <RequireAuth>
                   <Dashboard />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path='/statistics'
+              element={
+                <RequireAuth>
+                  <Statistics />
                 </RequireAuth>
               }
             />

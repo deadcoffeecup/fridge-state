@@ -7,12 +7,12 @@ import {
   AccordionPanel,
   AccordionIcon,
   Box,
-  Button,
   Flex,
   Container,
 } from '@chakra-ui/react';
+import EatOrWasteAlert from './EatOrWasteAlert';
 
-export const ProductsList = ({ products, handleEatFlag }) => {
+export const ProductsList = ({ products, handleFlag }) => {
   const arrOfProducts = Object.values(products);
 
   return (
@@ -32,16 +32,8 @@ export const ProductsList = ({ products, handleEatFlag }) => {
                   flex='1'
                   textAlign='left'
                 >
-                  {product.name}
-                  <Button
-                    as={Box}
-                    size={'sm'}
-                    colorScheme={'teal'}
-                    borderRadius={'xl'}
-                    onClick={() => handleEatFlag(product)}
-                  >
-                    Eat
-                  </Button>
+                  <Box>{product.name}</Box>
+                  <EatOrWasteAlert product={product} handleFlag={handleFlag} />
                 </Flex>
                 <AccordionIcon />
               </AccordionButton>
