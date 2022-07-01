@@ -67,7 +67,7 @@ export const Dashboard = () => {
     <Box
       color={'white'}
       width={'calc(100vw)'}
-      height={'calc(100vh)'}
+      minHeight={'calc(100vh)'}
       bg={'gray.700'}
     >
       <Container>
@@ -98,7 +98,7 @@ export const Dashboard = () => {
 
         <AddForm handleAdd={handleAdd} />
 
-        <ProductsList handleFlag={handleFlag} products={products} />
+        {/* <ProductsList handleFlag={handleFlag} products={products} /> */}
       </Container>
     </Box>
   );

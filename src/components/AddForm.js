@@ -60,10 +60,18 @@ export const AddForm = ({ handleAdd }) => {
             name='category'
             ref={categoryRef}
           >
-            <option value='diary'>diary</option>
-            <option value='meat'>meat</option>
-            <option value='vegetables'>vegetables</option>
-            <option value='fruits'>fruits</option>
+            <option style={{ color: 'black' }} value='diary'>
+              diary
+            </option>
+            <option style={{ color: 'black' }} value='meat'>
+              meat
+            </option>
+            <option style={{ color: 'black' }} value='vegetables'>
+              vegetables
+            </option>
+            <option style={{ color: 'black' }} value='fruits'>
+              fruits
+            </option>
           </Select>
         </FormControl>
         <Center marginBlock={3}>
