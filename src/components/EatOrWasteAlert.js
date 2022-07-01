@@ -16,10 +16,20 @@ import {
 export default function EatOrWasteAlert({ handleFlag, product }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
+  const handleClick = (mode) => {
+    handleFlag(product, mode);
+    onClose();
+  };
 
   return (
     <>
-      <Button as={Box} size={'sm'} borderRadius={'xl'} onClick={onOpen}>
+      <Button
+        colorScheme={'teal'}
+        size={'xs'}
+        as={Box}
+        borderRadius={'xl'}
+        onClick={onOpen}
+      >
         Remove
       </Button>
       <AlertDialog
@@ -42,7 +52,7 @@ export default function EatOrWasteAlert({ handleFlag, product }) {
               as={Box}
               size={'sm'}
               borderRadius={'xl'}
-              onClick={() => handleFlag(product, 'isEaten')}
+              onClick={() => handleClick('isEaten')}
               colorScheme='green'
               ml={3}
             >
@@ -52,7 +62,7 @@ export default function EatOrWasteAlert({ handleFlag, product }) {
               as={Box}
               size={'sm'}
               borderRadius={'xl'}
-              onClick={() => handleFlag(product, 'isWasted')}
+              onClick={() => handleClick('isWasted')}
               colorScheme='red'
               ml={3}
             >

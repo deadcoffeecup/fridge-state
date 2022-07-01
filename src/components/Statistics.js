@@ -56,6 +56,7 @@ export const Statistics = () => {
     <Box
       color={'white'}
       width={'calc(100vw)'}
+      minHeight={'min-content'}
       height={'calc(100vh)'}
       bg={'gray.700'}
     >
