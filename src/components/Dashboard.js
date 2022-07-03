@@ -17,7 +17,6 @@ import { useAuth } from '../context/AuthContext';
 
 import { ProductsList } from './ProductsList';
 import { AddForm } from './AddForm';
-import { AddByPhoto } from './AddByPhoto';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
@@ -71,7 +70,7 @@ export const Dashboard = () => {
       bg={'gray.700'}
     >
       <Container>
-        <AddByPhoto />
+   
         <Flex
           flexDirection={'column'}
           flex={1}
@@ -95,10 +94,8 @@ export const Dashboard = () => {
             Statistics
           </Button>
         </Flex>
-
         <AddForm handleAdd={handleAdd} />
-
-        {/* <ProductsList handleFlag={handleFlag} products={products} /> */}
+        <ProductsList handleFlag={handleFlag} products={products} />
       </Container>
     </Box>
   );
