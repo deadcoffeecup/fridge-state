@@ -25,7 +25,7 @@ export const Statistics = () => {
   const arrOfProducts = Object.values(products);
 
   const productsColRef = collection(db, 'users', currentUser.uid, 'products');
-  const q = query(productsColRef, where('isEaten' || 'isWasted', '==', true));
+  const q = query(productsColRef);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -35,7 +35,11 @@ export const Statistics = () => {
         const productsArr = [];
         snapshot.docs.forEach((doc) => {
           productsArr.push({ ...doc.data(), id: doc.id });
-          setProducts([...productsArr]);
+          setProducts([
+            ...productsArr.filter(
+              (el) => el.isEaten === true || el.isWasted === true
+            ),
+          ]);
         });
       }
     );
@@ -102,6 +106,8 @@ export const Statistics = () => {
                       textAlign='left'
                     >
                       <Box>{product.name}</Box>
+                      {product.isEaten && <Box color={'green.400'}>eaten</Box>}
+                      {product.isWasted && <Box color={'red.400'}>wasted</Box>}
                     </Flex>
                     <AccordionIcon />
                   </AccordionButton>

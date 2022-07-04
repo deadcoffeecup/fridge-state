@@ -17,6 +17,7 @@ import { useAuth } from '../context/AuthContext';
 
 import { ProductsList } from './ProductsList';
 import { AddForm } from './AddForm';
+import AddByPhoto from '../services/AddByPhoto';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
@@ -24,7 +25,7 @@ export const Dashboard = () => {
   const navigate = useNavigate();
 
   const productsColRef = collection(db, 'users', currentUser.uid, 'products');
-  const q = query(productsColRef, where('isEaten' || 'isWasted', '==', false));
+  const q = query(productsColRef, where('isEaten', '==', false));
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -34,7 +35,7 @@ export const Dashboard = () => {
         const productsArr = [];
         snapshot.docs.forEach((doc) => {
           productsArr.push({ ...doc.data(), id: doc.id });
-          setProducts([...productsArr]);
+          setProducts([...productsArr.filter((el) => el.isWasted !== true)]);
         });
       }
     );
@@ -70,7 +71,10 @@ export const Dashboard = () => {
       bg={'gray.700'}
     >
       <Container>
-   
+        {/* <Flex>
+          <AddByPhoto />
+        </Flex> */}
+
         <Flex
           flexDirection={'column'}
           flex={1}
