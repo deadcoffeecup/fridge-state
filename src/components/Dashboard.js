@@ -9,6 +9,7 @@ import {
   setDoc,
   Timestamp,
   where,
+  orderBy,
 } from 'firebase/firestore';
 import { Button, Box, Container, Text, Flex } from '@chakra-ui/react';
 
@@ -17,15 +18,21 @@ import { useAuth } from '../context/AuthContext';
 
 import { ProductsList } from './ProductsList';
 import { AddForm } from './AddForm';
-import AddByPhoto from '../services/AddByPhoto';
+// import AddByPhoto from '../services/AddByPhoto';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
+  const [order, setOrder] = useState('desc');
+
   const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
 
   const productsColRef = collection(db, 'users', currentUser.uid, 'products');
-  const q = query(productsColRef, where('isEaten', '==', false));
+  const q = query(
+    productsColRef,
+    where('isEaten', '==', false),
+    orderBy('expireDate', order)
+  );
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -99,6 +106,13 @@ export const Dashboard = () => {
           </Button>
         </Flex>
         <AddForm handleAdd={handleAdd} products={products} />
+        <Button
+          colorScheme={'teal'}
+          size={'xs'}
+          onClick={() => setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))}
+        >
+          Sort by date
+        </Button>
         <ProductsList handleFlag={handleFlag} products={products} />
       </Container>
     </Box>
