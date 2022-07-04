@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 import {
   FormControl,
@@ -10,10 +10,30 @@ import {
 } from '@chakra-ui/react';
 import { Timestamp } from 'firebase/firestore';
 
-export const AddForm = ({ handleAdd }) => {
+import AddBtn from './AddBtn';
+
+export const AddForm = ({ handleAdd, products }) => {
   const nameRef = useRef();
   const expireDateRef = useRef();
   const categoryRef = useRef();
+  const [tag, setTag] = useState('');
+
+  const arrOfProducts = Object.values(products);
+
+  const randomNumberToHex = (arr) => {
+    function randomNumber() {
+      return Math.floor(Math.random() * 256);
+    }
+    let tagNumber = randomNumber();
+
+    for (let i = 0; i < arr.length; i++) {
+      if (tagNumber === parseInt(arr[i].tag, 16)) {
+        tagNumber = randomNumber();
+        i = 0;
+      }
+    }
+    return tagNumber.toString(16);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,14 +42,16 @@ export const AddForm = ({ handleAdd }) => {
       expireDate: Timestamp.fromDate(new Date(expireDateRef.current.value)),
       category: categoryRef.current.value,
       isEaten: false,
+      tag: tag,
     });
     nameRef.current.value = '';
     expireDateRef.current.value = '';
     categoryRef.current.value = '';
   };
+
   return (
     <Center>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleSubmit(e, tag)}>
         <FormControl>
           <FormLabel htmlFor='name'>Name</FormLabel>
           <Input
@@ -43,6 +65,7 @@ export const AddForm = ({ handleAdd }) => {
         <FormControl>
           <FormLabel htmlFor='expireDate'>Expire Date</FormLabel>
           <Input
+            onChange={() => setTag(randomNumberToHex(arrOfProducts))}
             borderColor='teal.300'
             required
             ref={expireDateRef}
@@ -75,14 +98,7 @@ export const AddForm = ({ handleAdd }) => {
           </Select>
         </FormControl>
         <Center marginBlock={3}>
-          <Button
-            borderRadius={'xl'}
-            size={'sm'}
-            colorScheme={'teal'}
-            type='submit'
-          >
-            Add
-          </Button>
+          <AddBtn tag={tag} setTag={setTag} />
         </Center>
       </form>
     </Center>

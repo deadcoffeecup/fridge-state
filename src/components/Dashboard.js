@@ -66,7 +66,7 @@ export const Dashboard = () => {
   return (
     <Box
       color={'white'}
-      width={'calc(100vw)'}
+      width={'100%'}
       minHeight={'calc(100vh)'}
       bg={'gray.700'}
     >
@@ -98,7 +98,7 @@ export const Dashboard = () => {
             Statistics
           </Button>
         </Flex>
-        <AddForm handleAdd={handleAdd} />
+        <AddForm handleAdd={handleAdd} products={products} />
         <ProductsList handleFlag={handleFlag} products={products} />
       </Container>
     </Box>

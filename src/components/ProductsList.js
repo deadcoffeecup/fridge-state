@@ -32,7 +32,13 @@ export const ProductsList = ({ products, handleFlag }) => {
                   flex='1'
                   textAlign='left'
                 >
-                  <Box>{product.name}</Box>
+                  <Flex justifyContent={'space-between'}>
+                    <Box>{product.name}</Box>
+                    {'    '}
+                    <Box fontWeight={'extrabold'}>
+                      {product.tag && product.tag.toUpperCase()}
+                    </Box>
+                  </Flex>
                   <EatOrWasteAlert product={product} handleFlag={handleFlag} />
                 </Flex>
                 <AccordionIcon />
