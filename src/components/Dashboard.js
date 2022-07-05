@@ -11,7 +11,7 @@ import {
   where,
   orderBy,
 } from 'firebase/firestore';
-import { Button, Box, Container, Text, Flex } from '@chakra-ui/react';
+import { Button, Box, Text, Flex, Center, Container } from '@chakra-ui/react';
 
 import { db } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
@@ -23,6 +23,7 @@ import { AddForm } from './AddForm';
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [order, setOrder] = useState('asc');
+  const [categoryFilter, setCategoryFilter] = useState('all');
 
   const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
@@ -42,13 +43,22 @@ export const Dashboard = () => {
         const productsArr = [];
         snapshot.docs.forEach((doc) => {
           productsArr.push({ ...doc.data(), id: doc.id });
-          setProducts([...productsArr.filter((el) => el.isWasted !== true)]);
+          setProducts([
+            ...productsArr
+              .filter((el) => el.isWasted !== true)
+              .filter(function (el) {
+                if (categoryFilter !== 'all') {
+                  return el.category === categoryFilter;
+                }
+                return el;
+              }),
+          ]);
         });
       }
     );
 
     return unsubscribe;
-  }, [q]);
+  }, [q, categoryFilter]);
 
   const handleAdd = (product) => {
     addDoc(productsColRef, product);
@@ -85,9 +95,9 @@ export const Dashboard = () => {
           justifyContent={'flex-end'}
           alignItems={'flex-end'}
           textAlign={'right'}
-          marginBottom={'10'}
+          marginBottom={'0'}
         >
-          <Flex alignItems={'center'} flexDirection={'row'}>
+          <Flex margin={0} alignItems={'center'} flexDirection={'row'}>
             <Text>Hello {currentUser.displayName || 'friend'}</Text>
 
             <Button
@@ -110,19 +120,68 @@ export const Dashboard = () => {
           </Button>
         </Flex>
         <AddForm handleAdd={handleAdd} products={products} />
-        <Button
-          colorScheme={'teal'}
-          size={'xs'}
-          onClick={() => setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))}
+        <Flex
+          flexDirection={'column'}
+          alignItems={'center'}
+          justifyContent={'center'}
         >
-          Sorted{` `}
-          <Text margin={'1'} fontStyle={'oblique'}>
-            {` `}
-            {order}
-          </Text>{' '}
-          by date{' '}
-        </Button>
-        <ProductsList handleFlag={handleFlag} products={products} />
+          <Center
+            paddingBottom={2}
+            width={'90%'}
+            justifyContent={'space-between'}
+          >
+            <Button
+              colorScheme={'teal'}
+              size={'xs'}
+              onClick={() =>
+                setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))
+              }
+            >
+              Sorted{` `}
+              <Text margin={'1'} fontStyle={'oblique'}>
+                {` `}
+                {order}
+              </Text>{' '}
+              by date{' '}
+            </Button>
+            <Button
+              colorScheme={'teal'}
+              size={'xs'}
+              onClick={() => setCategoryFilter('meat')}
+            >
+              Meat
+            </Button>
+            <Button
+              colorScheme={'teal'}
+              size={'xs'}
+              onClick={() => setCategoryFilter('diary')}
+            >
+              Diary
+            </Button>
+            <Button
+              colorScheme={'teal'}
+              size={'xs'}
+              onClick={() => setCategoryFilter('vegetables')}
+            >
+              Vege
+            </Button>
+            <Button
+              colorScheme={'teal'}
+              size={'xs'}
+              onClick={() => setCategoryFilter('fruits')}
+            >
+              Fruits
+            </Button>
+            <Button
+              colorScheme={'teal'}
+              size={'xs'}
+              onClick={() => setCategoryFilter('all')}
+            >
+              All
+            </Button>
+          </Center>
+          <ProductsList handleFlag={handleFlag} products={products} />
+        </Flex>
       </Container>
     </Box>
   );

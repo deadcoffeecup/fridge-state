@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import {
   AlertDialog,
@@ -19,6 +19,11 @@ export default function AddBtn({ categoryRef, nameRef, tag, setTag }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [error, setError] = useState('');
   const okRef = useRef();
+  useEffect(() => {
+    if (tag && nameRef.current.value && categoryRef.current.value) {
+      setError('');
+    }
+  });
 
   return (
     <>
