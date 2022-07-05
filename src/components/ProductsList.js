@@ -9,6 +9,7 @@ import {
   Box,
   Flex,
   Container,
+  Heading,
 } from '@chakra-ui/react';
 import EatOrWasteAlert from './EatOrWasteAlert';
 
@@ -23,6 +24,7 @@ export const ProductsList = ({ products, handleFlag }) => {
         borderRadius={'xl'}
         allowMultiple
       >
+        <Heading textAlign={'center'}>Fridge</Heading>
         {arrOfProducts?.map((product) => (
           <AccordionItem borderRadius={'xl'} key={product.id}>
             <h2>

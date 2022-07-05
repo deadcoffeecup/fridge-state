@@ -74,6 +74,7 @@ export const Dashboard = () => {
     <Box
       color={'white'}
       width={'100%'}
+      height={'100%'}
       minHeight={'calc(100vh)'}
       bg={'gray.700'}
     >
@@ -90,14 +91,21 @@ export const Dashboard = () => {
           textAlign={'right'}
           marginBottom={'10'}
         >
-          <Flex flexDirection={'row'}>
+          <Flex alignItems={'center'} flexDirection={'row'}>
             <Text>Hello {currentUser.displayName || 'friend'}</Text>
 
-            <Button colorScheme={'teal'} size={'xs'} onClick={handleLogout}>
+            <Button
+              marginTop={1}
+              marginLeft={1}
+              colorScheme={'teal'}
+              size={'xs'}
+              onClick={handleLogout}
+            >
               Log out
             </Button>
           </Flex>
           <Button
+            marginTop={1}
             colorScheme={'teal'}
             size={'xs'}
             onClick={() => navigate('/statistics', { replace: true })}
