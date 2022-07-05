@@ -113,7 +113,22 @@ export const Statistics = () => {
                   </AccordionButton>
                 </Heading>
                 <AccordionPanel>
+                  {product.isEaten && (
+                    <Box>
+                      Eaten:{' '}
+                      {product.removeFromFridgeTime &&
+                        product.removeFromFridgeTime.toDate().toDateString()}
+                    </Box>
+                  )}
+                  {product.isWasted && (
+                    <Box>
+                      Wasted:{' '}
+                      {product.removeFromFridgeTime &&
+                        product.removeFromFridgeTime.toDate().toDateString()}
+                    </Box>
+                  )}
                   <Box flex='1' textAlign='left'>
+                    Expired:{`  `}
                     {product.expireDate &&
                       product.expireDate.toDate().toDateString()}
                   </Box>

@@ -111,7 +111,12 @@ export const Dashboard = () => {
           size={'xs'}
           onClick={() => setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))}
         >
-          Sort by date
+          Sorted{` `}
+          <Text margin={'1'} fontStyle={'oblique'}>
+            {` `}
+            {order}
+          </Text>{' '}
+          by date{' '}
         </Button>
         <ProductsList handleFlag={handleFlag} products={products} />
       </Container>
