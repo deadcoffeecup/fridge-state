@@ -1,10 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 
 import {
   FormControl,
   FormLabel,
   Input,
-  Button,
   Select,
   Center,
 } from '@chakra-ui/react';
@@ -98,7 +97,12 @@ export const AddForm = ({ handleAdd, products }) => {
           </Select>
         </FormControl>
         <Center marginBlock={3}>
-          <AddBtn tag={tag} setTag={setTag} />
+          <AddBtn
+            categoryRef={categoryRef}
+            nameRef={nameRef}
+            tag={tag}
+            setTag={setTag}
+          />
         </Center>
       </form>
     </Center>

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import {
   AlertDialog,
@@ -12,24 +12,56 @@ import {
   Button,
   Box,
   Heading,
+  Flex,
 } from '@chakra-ui/react';
 
-export default function AddBtn({ tag, setTag }) {
+export default function AddBtn({ categoryRef, nameRef, tag, setTag }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [error, setError] = useState('');
   const okRef = useRef();
 
   return (
     <>
-      <Button
-        disabled={!tag}
-        borderRadius={'xl'}
-        size={'sm'}
-        colorScheme={'teal'}
-        onClick={onOpen}
-        type='submit'
+      <Flex
+        flexDirection={'column'}
+        justifyContent={'center'}
+        alignItems={'center'}
+        position={'relative'}
+        marginBottom={6}
+        onMouseEnter={() => {
+          if (!tag || !nameRef.current.value || !categoryRef.current.value) {
+            setError('you need to provide all data');
+          }
+        }}
+        onMouseLeave={() => {
+          setError('');
+        }}
       >
-        Add
-      </Button>
+        <Box>
+          <Button
+            disabled={
+              !tag || !nameRef.current.value || !categoryRef.current.value
+            }
+            borderRadius={'xl'}
+            size={'sm'}
+            colorScheme={'teal'}
+            onClick={onOpen}
+            type='submit'
+          >
+            Add
+          </Button>
+        </Box>
+        <Box
+          width={200}
+          noOfLines={1}
+          color={'red.400'}
+          position={'absolute'}
+          bottom={-6}
+        >
+          {error}
+        </Box>
+      </Flex>
+
       <AlertDialog
         motionPreset='slideInBottom'
         leastDestructiveRef={okRef}

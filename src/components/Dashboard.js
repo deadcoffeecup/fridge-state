@@ -22,7 +22,7 @@ import { AddForm } from './AddForm';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
-  const [order, setOrder] = useState('desc');
+  const [order, setOrder] = useState('asc');
 
   const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
@@ -79,10 +79,6 @@ export const Dashboard = () => {
       bg={'gray.700'}
     >
       <Container>
-        {/* <Flex>
-          <AddByPhoto />
-        </Flex> */}
-
         <Flex
           flexDirection={'column'}
           flex={1}

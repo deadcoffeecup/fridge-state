@@ -37,7 +37,7 @@ export const ProductsList = ({ products, handleFlag }) => {
                   <Flex justifyContent={'space-between'}>
                     <Box>{product.name}</Box>
                     {'    '}
-                    <Box fontWeight={'extrabold'}>
+                    <Box marginLeft={3} fontWeight={'extrabold'}>
                       {product.tag && product.tag.toUpperCase()}
                     </Box>
                   </Flex>

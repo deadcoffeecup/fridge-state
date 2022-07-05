@@ -119,7 +119,7 @@ export const Statistics = () => {
           alignItems={'center'}
           justifyContent={'center'}
         >
-          <Box margin={2} height={300} width={300}>
+          <Box margin={5} height={300} width={300}>
             <Doughnut data={doughnutChartData} />
           </Box>
           <Container>
