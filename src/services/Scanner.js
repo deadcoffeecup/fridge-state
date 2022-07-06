@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Quagga from '@ericblade/quagga2';
 
@@ -20,8 +20,8 @@ function getMedianOfCodeErrors(decodedCodes) {
 }
 
 const defaultConstraints = {
-  width: 300,
-  height: 300,
+  width: 640,
+  height: 480,
 };
 
 const defaultLocatorSettings = {

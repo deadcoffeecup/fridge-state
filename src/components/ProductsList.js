@@ -10,11 +10,13 @@ import {
   Flex,
   Container,
   Heading,
+  Text,
 } from '@chakra-ui/react';
 import EatOrWasteAlert from './EatOrWasteAlert';
 
 export const ProductsList = ({ products, handleFlag }) => {
   const arrOfProducts = Object.values(products);
+  const now = new Date();
 
   return (
     <Container>
@@ -48,8 +50,15 @@ export const ProductsList = ({ products, handleFlag }) => {
             </h2>
             <AccordionPanel>
               <Box flex='1' textAlign='left'>
-                {product.expireDate &&
-                  product.expireDate.toDate().toDateString()}
+                {now.getTime() > product.expireDate.toDate().getTime() ? (
+                  <Text color={'red'}>
+                    {product.expireDate.toDate().toDateString()}
+                  </Text>
+                ) : (
+                  <Text color={'white'}>
+                    {product.expireDate.toDate().toDateString()}
+                  </Text>
+                )}
               </Box>
               <Box>{product.category}</Box>
             </AccordionPanel>

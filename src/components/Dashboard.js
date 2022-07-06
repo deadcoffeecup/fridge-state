@@ -18,7 +18,6 @@ import { useAuth } from '../context/AuthContext';
 
 import { ProductsList } from './ProductsList';
 import { AddForm } from './AddForm';
-// import AddByPhoto from '../services/AddByPhoto';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
@@ -119,6 +118,7 @@ export const Dashboard = () => {
             Statistics
           </Button>
         </Flex>
+
         <AddForm handleAdd={handleAdd} products={products} />
         <Flex
           flexDirection={'column'}

@@ -8,8 +8,9 @@ import { RequireAuth } from './RequireAuth';
 import { Dashboard } from './Dashboard';
 import { Signup } from './Signup';
 import { Login } from './Login';
-import { NotFound } from './NotFound.js';
+import { NotFound } from './NotFound';
 import { Statistics } from './Statistics';
+import AddByPhoto from '../services/AddByPhoto';
 
 const colors = {
   brand: {
@@ -45,6 +46,8 @@ const App = () => {
             />
             <Route path='/signup' element={<Signup />} />
             <Route exact path='/login' element={<Login />} />
+            <Route path='/bs' element={<AddByPhoto />} />
+
             <Route path='*' element={<NotFound />} />
           </Routes>
         </AuthProvider>
