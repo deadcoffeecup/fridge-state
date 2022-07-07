@@ -9,6 +9,7 @@ import {
   Button,
   Heading,
   Flex,
+  Box,
 } from '@chakra-ui/react';
 
 import { useAuth } from '../context/AuthContext';
@@ -56,7 +57,7 @@ export const Signup = () => {
     >
       <Container>
         <Heading>Sign up</Heading>
-        {error && <FormErrorMessage>{error}</FormErrorMessage>}
+        {error && <Box>{error}</Box>}
         <form onSubmit={handleSubmit}>
           <FormControl>
             <FormLabel htmlFor='email'>email</FormLabel>
