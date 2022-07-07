@@ -8,7 +8,7 @@ import {
   Input,
   Button,
   Heading,
-  Box,
+  Flex,
 } from '@chakra-ui/react';
 
 import { useAuth } from '../context/AuthContext';
@@ -45,11 +45,14 @@ export const Signup = () => {
     setIsLoading(false);
   }
   return (
-    <Box
+    <Flex
       color={'white'}
       width={'calc(100vw)'}
       height={'calc(100vh)'}
       bg={'gray.700'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      flexDirection={'column'}
     >
       <Container>
         <Heading>Sign up</Heading>
@@ -74,7 +77,7 @@ export const Signup = () => {
           </FormControl>
           <Button
             colorScheme={'teal'}
-            size={'xs'}
+            size={'md'}
             disabled={isLoading}
             type='submit'
           >
@@ -85,11 +88,11 @@ export const Signup = () => {
       <Container>
         Already singed up?{' '}
         <Link to='/login'>
-          <Button colorScheme={'teal'} size={'xs'}>
+          <Button colorScheme={'teal'} size={'md'}>
             Log in
           </Button>
         </Link>
       </Container>
-    </Box>
+    </Flex>
   );
 };

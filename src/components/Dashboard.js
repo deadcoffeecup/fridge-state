@@ -103,7 +103,7 @@ export const Dashboard = () => {
               marginTop={1}
               marginLeft={1}
               colorScheme={'teal'}
-              size={'xs'}
+              size={'md'}
               onClick={handleLogout}
             >
               Log out
@@ -112,7 +112,7 @@ export const Dashboard = () => {
           <Button
             marginTop={1}
             colorScheme={'teal'}
-            size={'xs'}
+            size={'md'}
             onClick={() => navigate('/statistics', { replace: true })}
           >
             Statistics
