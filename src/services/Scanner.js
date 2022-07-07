@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect } from 'react';
+import { useCallback, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import Quagga from '@ericblade/quagga2';
 
@@ -149,6 +149,8 @@ const Scanner = ({
     locator,
     decoders,
     locate,
+    facingMode,
+    numOfWorkers,
   ]);
   return null;
 };
