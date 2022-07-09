@@ -18,6 +18,7 @@ import { useAuth } from '../context/AuthContext';
 
 import { ProductsList } from './ProductsList';
 import { AddForm } from './AddForm';
+import { AddByBarcode } from './AddByBarcode';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
@@ -120,6 +121,7 @@ export const Dashboard = () => {
         </Flex>
 
         <AddForm handleAdd={handleAdd} products={products} />
+        {/* <AddByBarcode handleAdd={handleAdd} products={products} /> */}
         <Flex
           flexDirection={'column'}
           alignItems={'center'}

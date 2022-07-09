@@ -11,6 +11,21 @@ import { Timestamp } from 'firebase/firestore';
 
 import AddBtn from './AddBtn';
 
+export const randomNumberToHex = (arr) => {
+  function randomNumber() {
+    return Math.floor(Math.random() * 256);
+  }
+  let tagNumber = randomNumber();
+
+  for (let i = 0; i < arr.length; i++) {
+    if (tagNumber === parseInt(arr[i].tag, 16)) {
+      tagNumber = randomNumber();
+      i = 0;
+    }
+  }
+  return tagNumber.toString(16);
+};
+
 export const AddForm = ({ handleAdd, products }) => {
   const nameRef = useRef();
   const expireDateRef = useRef();
@@ -18,21 +33,6 @@ export const AddForm = ({ handleAdd, products }) => {
   const [tag, setTag] = useState('');
 
   const arrOfProducts = Object.values(products);
-
-  const randomNumberToHex = (arr) => {
-    function randomNumber() {
-      return Math.floor(Math.random() * 256);
-    }
-    let tagNumber = randomNumber();
-
-    for (let i = 0; i < arr.length; i++) {
-      if (tagNumber === parseInt(arr[i].tag, 16)) {
-        tagNumber = randomNumber();
-        i = 0;
-      }
-    }
-    return tagNumber.toString(16);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
