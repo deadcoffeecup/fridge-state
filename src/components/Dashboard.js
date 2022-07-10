@@ -121,7 +121,7 @@ export const Dashboard = () => {
         </Flex>
 
         <AddForm handleAdd={handleAdd} products={products} />
-        {/* <AddByBarcode handleAdd={handleAdd} products={products} /> */}
+        <AddByBarcode handleAdd={handleAdd} products={products} />
         <Flex
           flexDirection={'column'}
           alignItems={'center'}

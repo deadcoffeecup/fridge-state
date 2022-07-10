@@ -22,13 +22,20 @@ export const AddByBarcode = ({ handleAdd, products }) => {
       .then((r) => r.json())
       .then((json) => {
         json.status
-          ? console.log(json.product)
+          ? setProductFromAPI(json.product)
           : console.warn('product not found');
       })
       .catch((err) => console.warn(err));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(
+      productFromAPI.categories_hierarchy[0].slice(
+        3,
+        productFromAPI.categories_hierarchy[0].length
+      )
+    );
+    console.log(productFromAPI.product_name);
     handleAdd({
       name: productFromAPI.product_name,
       expireDate: Timestamp.fromDate(new Date(expireDateRef.current.value)),
