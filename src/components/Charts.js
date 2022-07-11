@@ -52,23 +52,37 @@ export const Charts = ({ arrOfProducts }) => {
       },
     },
   };
+  const toMonthName = (monthNumber) => {
+    const date = new Date();
+    date.setMonth(monthNumber);
+
+    return date.toLocaleString('en-US', {
+      month: 'long',
+    });
+  };
 
   const wastedArr = arrOfProducts.filter((el) => el.isWasted === true);
-
   const wastedGrouped = _.groupBy(wastedArr, ({ expireDate }) =>
     expireDate.toDate().getMonth()
   );
   for (const key in wastedGrouped) {
     wastedGrouped[key] = wastedGrouped[key].length;
   }
+  for (let key in wastedGrouped) {
+    wastedGrouped[toMonthName(key)] = wastedGrouped[key];
+    delete wastedGrouped[key];
+  }
 
   const eatenArr = arrOfProducts.filter((el) => el.isEaten === true);
-
   const eatenGrouped = _.groupBy(eatenArr, ({ expireDate }) =>
     expireDate.toDate().getMonth()
   );
   for (const key in eatenGrouped) {
     eatenGrouped[key] = eatenGrouped[key].length;
+  }
+  for (let key in eatenGrouped) {
+    eatenGrouped[toMonthName(key)] = eatenGrouped[key];
+    delete eatenGrouped[key];
   }
   const barChartData = {
     datasets: [
