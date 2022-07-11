@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -11,9 +11,10 @@ import {
 } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import _ from 'lodash';
-import { Box } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 
 export const Charts = ({ arrOfProducts }) => {
+  const [isHidden, setIsHidden] = useState(true);
   ChartJS.register(ArcElement, Tooltip, Legend);
   ChartJS.register(
     CategoryScale,
@@ -101,12 +102,29 @@ export const Charts = ({ arrOfProducts }) => {
 
   return (
     <>
-      <Box margin={5} height={300} width={300}>
-        <Doughnut options={{ responsive: true }} data={doughnutChartData} />
-      </Box>
-      <Box margin={0} height={300} width={500}>
-        <Bar options={barChartOptions} data={barChartData} />
-      </Box>
+      <Button
+        marginBottom={5}
+        marginLeft={1}
+        colorScheme={'teal'}
+        size={'md'}
+        onClick={() => setIsHidden(!isHidden)}
+      >
+        {isHidden ? 'Hide' : 'Show'} Charts
+      </Button>
+      {isHidden && (
+        <Flex
+          flexDirection={'column'}
+          alignItems={'center'}
+          justifyContent={'center'}
+        >
+          <Box margin={5} height={300} width={300}>
+            <Doughnut options={{ responsive: true }} data={doughnutChartData} />
+          </Box>
+          <Box margin={0} height={300} width={500}>
+            <Bar options={barChartOptions} data={barChartData} />
+          </Box>
+        </Flex>
+      )}
     </>
   );
 };
