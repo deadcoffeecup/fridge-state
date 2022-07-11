@@ -29,19 +29,12 @@ export const AddByBarcode = ({ handleAdd, products }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      productFromAPI.categories_hierarchy[0].slice(
-        3,
-        productFromAPI.categories_hierarchy[0].length
-      )
-    );
-    console.log(productFromAPI.product_name);
     handleAdd({
       name: productFromAPI.product_name,
       expireDate: Timestamp.fromDate(new Date(expireDateRef.current.value)),
       category: productFromAPI.categories_hierarchy[0].slice(
         3,
-        productFromAPI.categories_hierarchy.length
+        productFromAPI.categories_hierarchy[0].length
       ),
       isEaten: false,
       tag: tag,
