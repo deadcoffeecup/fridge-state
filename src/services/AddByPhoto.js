@@ -6,7 +6,7 @@ const AddByPhoto = () => {
   const [scanning, setScanning] = useState(false);
   const [results, setResults] = useState([]);
   const scannerRef = useRef(null);
-
+  console.log(scannerRef);
   return (
     <div>
       <button onClick={() => setScanning(!scanning)}>

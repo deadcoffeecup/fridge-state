@@ -120,7 +120,12 @@ export const Charts = ({ arrOfProducts }) => {
           <Box margin={5} height={300} width={300}>
             <Doughnut options={{ responsive: true }} data={doughnutChartData} />
           </Box>
-          <Box margin={0} height={300} width={500}>
+          <Box
+            marginBottom={40}
+            height={300}
+            maxWidth={800}
+            width={'calc(95vw)'}
+          >
             <Bar options={barChartOptions} data={barChartData} />
           </Box>
         </Flex>

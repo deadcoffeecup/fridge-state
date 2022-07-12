@@ -56,9 +56,8 @@ export const Dashboard = () => {
         });
       }
     );
-
     return unsubscribe;
-  }, [q, categoryFilter]);
+  }, [order, categoryFilter]);
 
   const handleAdd = (product) => {
     addDoc(productsColRef, product);

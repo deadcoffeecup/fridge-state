@@ -25,6 +25,7 @@ export const ProductsList = ({ products, handleFlag }) => {
         borderColor='teal.300'
         borderRadius={'xl'}
         allowMultiple
+        marginBottom={20}
       >
         <Heading textAlign={'center'}>Fridge</Heading>
         {arrOfProducts?.map((product) => (
