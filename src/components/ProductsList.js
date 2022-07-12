@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Accordion,
@@ -17,6 +17,7 @@ import EatOrWasteAlert from './EatOrWasteAlert';
 export const ProductsList = ({ products, handleFlag }) => {
   const arrOfProducts = Object.values(products);
   const now = new Date();
+  const [isAlertOpened, setIsAlertOpened] = useState(false);
 
   return (
     <Container>
@@ -44,7 +45,11 @@ export const ProductsList = ({ products, handleFlag }) => {
                       {product.tag && product.tag.toUpperCase()}
                     </Box>
                   </Flex>
-                  <EatOrWasteAlert product={product} handleFlag={handleFlag} />
+                  <EatOrWasteAlert
+                    setIsAlertOpened={setIsAlertOpened}
+                    product={product}
+                    handleFlag={handleFlag}
+                  />
                 </Flex>
                 <AccordionIcon />
               </AccordionButton>

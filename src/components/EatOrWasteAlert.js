@@ -11,9 +11,14 @@ import {
   AlertDialogCloseButton,
   Button,
   Box,
+  Flex,
 } from '@chakra-ui/react';
 
-export default function EatOrWasteAlert({ handleFlag, product }) {
+export default function EatOrWasteAlert({
+  setIsAlertOpened,
+  handleFlag,
+  product,
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
   const handleClick = (mode) => {
@@ -22,13 +27,16 @@ export default function EatOrWasteAlert({ handleFlag, product }) {
   };
 
   return (
-    <>
+    <Flex justifyContent={'flex-end'}>
       <Button
         colorScheme={'teal'}
         size={'xs'}
         as={Box}
         borderRadius={'xl'}
-        onClick={onOpen}
+        onClick={() => {
+          setIsAlertOpened((prev) => !prev);
+          onOpen();
+        }}
       >
         Remove
       </Button>
@@ -71,6 +79,6 @@ export default function EatOrWasteAlert({ handleFlag, product }) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </>
+    </Flex>
   );
 }
