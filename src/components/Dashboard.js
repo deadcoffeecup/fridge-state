@@ -17,13 +17,13 @@ import { db } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
 
 import { ProductsList } from './ProductsList';
-import { AddForm } from './AddForm';
-import { AddByBarcode } from './AddByBarcode';
+import AddModal from './AddProduct/AddModal';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [order, setOrder] = useState('asc');
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
@@ -119,8 +119,11 @@ export const Dashboard = () => {
           </Button>
         </Flex>
 
-        <AddForm handleAdd={handleAdd} products={products} />
-        <AddByBarcode handleAdd={handleAdd} products={products} />
+        <AddModal
+          setIsModalOpened={setIsModalOpened}
+          handleAdd={handleAdd}
+          products={products}
+        />
         <Flex
           flexDirection={'column'}
           alignItems={'center'}

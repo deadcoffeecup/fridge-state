@@ -10,7 +10,7 @@ import { Signup } from './Signup';
 import { Login } from './Login';
 import { NotFound } from './NotFound';
 import { Statistics } from './Statistics';
-import AddByPhoto from '../services/AddByPhoto';
+import AddByPhoto from './AddProduct/AddByPhoto';
 
 const colors = {
   brand: {
@@ -46,7 +46,7 @@ const App = () => {
             />
             <Route path='/signup' element={<Signup />} />
             <Route exact path='/login' element={<Login />} />
-            <Route path='/bs' element={<AddByPhoto />} />
+            <Route path='bs' element={<AddByPhoto />} />
 
             <Route path='*' element={<NotFound />} />
           </Routes>
