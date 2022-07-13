@@ -49,8 +49,7 @@ export default function AddModal({ setIsModalOpened, products, handleAdd }) {
 
             {isScanning && (
               <>
-                <AddByPhoto />
-                <AddByBarcode handleAdd={handleAdd} products={products} />
+                <AddByPhoto handleAdd={handleAdd} products={products} />
               </>
             )}
           </ModalBody>

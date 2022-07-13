@@ -1,14 +1,22 @@
 import { Center, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { Timestamp } from 'firebase/firestore';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AddBtn from './AddBtn';
 import { randomNumberToHex } from './AddForm';
+import _ from 'lodash';
 
 const API = 'https://world.openfoodfacts.org/api/v0/product/';
 
-export const AddByBarcode = ({ handleAdd, products }) => {
+export const AddByBarcode = ({ results, handleAdd, products }) => {
   const [productFromAPI, setProductFromAPI] = useState({});
   const [tag, setTag] = useState('');
+  const [result, setResult] = useState([]);
+
+  useEffect(() => {
+    let mostFrequentEl = _.head(_(results).countBy().entries().maxBy(_.last));
+
+    setResult(mostFrequentEl);
+  }, [results]);
 
   const arrOfProducts = Object.values(products);
 
@@ -54,6 +62,7 @@ export const AddByBarcode = ({ handleAdd, products }) => {
               id='barcode'
               name='barocode'
               type='number'
+              value={result}
             />
           </FormControl>
           <FormControl>

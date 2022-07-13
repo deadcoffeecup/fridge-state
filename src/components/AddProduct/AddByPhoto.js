@@ -1,25 +1,22 @@
 import { Button } from '@chakra-ui/react';
 import React, { useState, useRef } from 'react';
+import { AddByBarcode } from './AddByBarcode';
 import Scanner from './Scanner';
 
-const AddByPhoto = () => {
+const AddByPhoto = ({ handleAdd, products }) => {
   const [scanning, setScanning] = useState(false);
   const [results, setResults] = useState([]);
   const scannerRef = useRef(null);
-  console.log(scannerRef);
   return (
     <div>
       <Button colorScheme={'teal'} onClick={() => setScanning(!scanning)}>
         {scanning ? 'Stop' : 'Start'}
       </Button>
-      <ul className='results'>
-        {/* {results.map(
-          (result) =>
-            result.codeResult && (
-              <Result key={result.codeResult.code} result={result} />
-            )
-        )} */}
-      </ul>
+      <AddByBarcode
+        results={results}
+        handleAdd={handleAdd}
+        products={products}
+      />
       <div
         ref={scannerRef}
         style={{
