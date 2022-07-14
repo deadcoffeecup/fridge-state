@@ -17,7 +17,8 @@ import { db } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
 
 import { ProductsList } from './ProductsList';
-import AddModal from './AddProduct/AddModal';
+import { AddModal } from './AddProduct/AddModal';
+import { NoProductsInfo } from './NoProductsInfo';
 
 export const Dashboard = () => {
   const [products, setProducts] = useState([]);
@@ -124,68 +125,72 @@ export const Dashboard = () => {
           handleAdd={handleAdd}
           products={products}
         />
-        <Flex
-          flexDirection={'column'}
-          alignItems={'center'}
-          justifyContent={'center'}
-        >
-          <Center
-            paddingBottom={2}
-            width={'90%'}
-            justifyContent={'space-between'}
+        {products.length ? (
+          <Flex
+            flexDirection={'column'}
+            alignItems={'center'}
+            justifyContent={'center'}
           >
-            <Button
-              colorScheme={'teal'}
-              size={'xs'}
-              onClick={() =>
-                setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))
-              }
+            <Center
+              paddingBottom={2}
+              width={'90%'}
+              justifyContent={'space-between'}
             >
-              Sorted{` `}
-              <Text margin={'1'} fontStyle={'oblique'}>
-                {` `}
-                {order}
-              </Text>{' '}
-              by date{' '}
-            </Button>
-            <Button
-              colorScheme={'teal'}
-              size={'xs'}
-              onClick={() => setCategoryFilter('meat')}
-            >
-              Meat
-            </Button>
-            <Button
-              colorScheme={'teal'}
-              size={'xs'}
-              onClick={() => setCategoryFilter('diary')}
-            >
-              Diary
-            </Button>
-            <Button
-              colorScheme={'teal'}
-              size={'xs'}
-              onClick={() => setCategoryFilter('vegetables')}
-            >
-              Vege
-            </Button>
-            <Button
-              colorScheme={'teal'}
-              size={'xs'}
-              onClick={() => setCategoryFilter('fruits')}
-            >
-              Fruits
-            </Button>
-            <Button
-              colorScheme={'teal'}
-              size={'xs'}
-              onClick={() => setCategoryFilter('all')}
-            >
-              All
-            </Button>
-          </Center>
-          <ProductsList handleFlag={handleFlag} products={products} />
-        </Flex>
+              <Button
+                colorScheme={'teal'}
+                size={'xs'}
+                onClick={() =>
+                  setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))
+                }
+              >
+                Sorted{` `}
+                <Text margin={'1'} fontStyle={'oblique'}>
+                  {` `}
+                  {order}
+                </Text>
+                by date
+              </Button>
+              <Button
+                colorScheme={'teal'}
+                size={'xs'}
+                onClick={() => setCategoryFilter('meat')}
+              >
+                Meat
+              </Button>
+              <Button
+                colorScheme={'teal'}
+                size={'xs'}
+                onClick={() => setCategoryFilter('diary')}
+              >
+                Diary
+              </Button>
+              <Button
+                colorScheme={'teal'}
+                size={'xs'}
+                onClick={() => setCategoryFilter('vegetables')}
+              >
+                Vege
+              </Button>
+              <Button
+                colorScheme={'teal'}
+                size={'xs'}
+                onClick={() => setCategoryFilter('fruits')}
+              >
+                Fruits
+              </Button>
+              <Button
+                colorScheme={'teal'}
+                size={'xs'}
+                onClick={() => setCategoryFilter('all')}
+              >
+                All
+              </Button>
+            </Center>
+            <ProductsList handleFlag={handleFlag} products={products} />
+          </Flex>
+        ) : (
+          <NoProductsInfo text={'what u have in fridge'} />
+        )}
       </Container>
     </Box>
   );

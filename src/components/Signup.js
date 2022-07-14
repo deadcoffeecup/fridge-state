@@ -27,10 +27,8 @@ export const Signup = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if ([...passwordRef.current.value].length < 8) {
-      return setError(
-        'password has to be at least 8 character and uppercase and lowercase and digit and special char'
-      );
+    if ([...passwordRef.current.value].length < 6) {
+      return setError('password has to be at least 6 character');
     } else if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       return setError('passwords do not match');
     }
@@ -56,7 +54,6 @@ export const Signup = () => {
     >
       <Container>
         <Heading>Sign up</Heading>
-        {error && <Box>{error}</Box>}
         <form onSubmit={handleSubmit}>
           <FormControl>
             <FormLabel htmlFor='email'>email</FormLabel>
@@ -75,6 +72,7 @@ export const Signup = () => {
               id='confirmPassword'
             />
           </FormControl>
+          {error && <Box color={'red'}>{error}</Box>}
           <Button
             colorScheme={'teal'}
             size={'md'}
@@ -86,7 +84,7 @@ export const Signup = () => {
         </form>
       </Container>
       <Container>
-        Already singed up?{' '}
+        Already singed up?
         <Link to='/login'>
           <Button colorScheme={'teal'} size={'md'}>
             Log in

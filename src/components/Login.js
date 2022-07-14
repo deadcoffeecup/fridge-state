@@ -49,10 +49,8 @@ export const Login = () => {
       alignItems={'center'}
       flexDirection={'column'}
     >
-      {' '}
       <Container>
         <Heading>Log in</Heading>
-        {error && <Box>{error}</Box>}
         <form onSubmit={handleSubmit}>
           <FormControl>
             <FormLabel htmlFor='email'>email</FormLabel>
@@ -60,8 +58,14 @@ export const Login = () => {
           </FormControl>
           <FormControl>
             <FormLabel htmlFor='password'>Password</FormLabel>
-            <Input ref={passwordRef} type='password' name='' id='password' />
+            <Input
+              ref={passwordRef}
+              type='password'
+              name='password'
+              id='password'
+            />
           </FormControl>
+          {error && <Box color={'red'}>{error}</Box>}
           <Button
             colorScheme={'teal'}
             size={'md'}
@@ -73,7 +77,7 @@ export const Login = () => {
         </form>
       </Container>
       <Container>
-        Need an account?{' '}
+        Need an account?
         <Link to='/signup'>
           <Button colorScheme={'teal'} size={'md'}>
             Sign up!

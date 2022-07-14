@@ -1,7 +1,5 @@
 import {
-  Box,
   Button,
-  Center,
   Flex,
   Modal,
   ModalBody,
@@ -14,10 +12,9 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { AddForm } from './AddForm';
-import { AddByBarcode } from './AddByBarcode';
 import AddByPhoto from './AddByPhoto';
 
-export default function AddModal({ setIsModalOpened, products, handleAdd }) {
+export const AddModal = ({ setIsModalOpened, products, handleAdd }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isScanning, setIsScanning] = useState(false);
 
@@ -68,4 +65,4 @@ export default function AddModal({ setIsModalOpened, products, handleAdd }) {
       </Modal>
     </>
   );
-}
+};

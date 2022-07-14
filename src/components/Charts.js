@@ -107,7 +107,7 @@ export const Charts = ({ arrOfProducts }) => {
         marginLeft={1}
         colorScheme={'teal'}
         size={'md'}
-        onClick={() => setIsHidden(!isHidden)}
+        onClick={() => setIsHidden((prev) => !prev)}
       >
         {isHidden ? 'Hide' : 'Show'} Charts
       </Button>
