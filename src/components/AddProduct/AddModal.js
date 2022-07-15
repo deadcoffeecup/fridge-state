@@ -44,7 +44,7 @@ export const AddModal = ({ setIsModalOpened, products, handleAdd }) => {
               variant={'outline'}
               onClick={() => setIsScanning((prev) => !prev)}
             >
-              {!isScanning ? 'Scan' : 'Close Scanner'}
+              {!isScanning ? 'Scan' : 'Type'}
             </Button>
             {isScanning ? (
               <AddByPhoto handleAdd={handleAdd} products={products} />

@@ -43,7 +43,7 @@ export default function AddBtn({ categoryRef, nameRef, tag, setTag }) {
               !tag || !nameRef.current.value || !categoryRef.current.value
             }
             borderRadius={'xl'}
-            size={'sm'}
+            size={'md'}
             colorScheme={'teal'}
             onClick={onOpen}
             type='submit'

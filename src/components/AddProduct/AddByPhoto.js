@@ -10,7 +10,7 @@ const AddByPhoto = ({ handleAdd, products }) => {
   return (
     <div>
       <Button colorScheme={'teal'} onClick={() => setScanning(!scanning)}>
-        {scanning ? 'Stop' : 'Start'}
+        {scanning ? 'Stop scanning' : 'Start scanning'}
       </Button>
       <AddByBarcode
         results={results}

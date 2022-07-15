@@ -40,6 +40,28 @@ export const Charts = ({ arrOfProducts }) => {
       },
     ],
   };
+  const doughnutChartoptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          color: '#fff',
+          font: {
+            size: 15,
+          },
+        },
+      },
+      title: {
+        color: ['#fff'],
+        display: true,
+        text: 'Eat/Waste',
+        font: {
+          size: 20,
+        },
+      },
+    },
+  };
 
   const barChartOptions = {
     responsive: true,
@@ -49,7 +71,7 @@ export const Charts = ({ arrOfProducts }) => {
         labels: {
           color: '#fff',
           font: {
-            size: 20,
+            size: 15,
           },
         },
       },
@@ -58,7 +80,7 @@ export const Charts = ({ arrOfProducts }) => {
         display: true,
         text: 'Monthly',
         font: {
-          size: 40,
+          size: 20,
         },
       },
     },
@@ -130,15 +152,23 @@ export const Charts = ({ arrOfProducts }) => {
           flexDirection={'column'}
           alignItems={'center'}
           justifyContent={'center'}
+          width={'100%'}
         >
-          <Box margin={5} height={300} width={300}>
-            <Doughnut options={{ responsive: true }} data={doughnutChartData} />
+          <Box
+            margin={5}
+            maxHeight={400}
+            maxWidth={400}
+            height={'100%'}
+            width={'100%'}
+          >
+            <Doughnut options={doughnutChartoptions} data={doughnutChartData} />
           </Box>
           <Box
-            marginBottom={40}
-            height={300}
-            maxWidth={800}
-            width={'calc(95vw)'}
+            marginBottom={5}
+            maxheight={300}
+            minWidth={350}
+            maxWidth={'90%'}
+            width={'100%'}
           >
             <Bar options={barChartOptions} data={barChartData} />
           </Box>
