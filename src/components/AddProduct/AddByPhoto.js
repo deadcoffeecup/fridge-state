@@ -38,12 +38,12 @@ const AddByPhoto = ({ handleAdd, products }) => {
           width='640'
           height='480'
         />
-        {scanning ? (
+        {scanning && (
           <Scanner
             scannerRef={scannerRef}
             onDetected={(result) => setResults([...results, result])}
           />
-        ) : null}
+        )}
       </div>
     </div>
   );

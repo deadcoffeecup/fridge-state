@@ -36,10 +36,16 @@ export const AddModal = ({ setIsModalOpened, products, handleAdd }) => {
         <ModalContent>
           <ModalHeader textAlign={'center'}>
             Add Product by providing data
-            <br /> or Scan its barcode
+            <br /> or scan its barcode
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Button
+              variant={'outline'}
+              onClick={() => setIsScanning((prev) => !prev)}
+            >
+              {!isScanning ? 'Scan' : 'Close Scanner'}
+            </Button>
             {isScanning ? (
               <AddByPhoto handleAdd={handleAdd} products={products} />
             ) : (
@@ -47,16 +53,7 @@ export const AddModal = ({ setIsModalOpened, products, handleAdd }) => {
             )}
           </ModalBody>
 
-          <ModalFooter>
-            <Flex width={'100%'} justifyContent={'center'}>
-              <Button
-                colorScheme={'teal'}
-                onClick={() => setIsScanning((prev) => !prev)}
-              >
-                {!isScanning ? 'Scan' : 'Close Scanner'}
-              </Button>
-            </Flex>
-          </ModalFooter>
+          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>

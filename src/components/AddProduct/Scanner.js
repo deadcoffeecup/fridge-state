@@ -64,7 +64,6 @@ const Scanner = ({
     drawingCtx.fillStyle = 'green';
 
     if (result) {
-      // console.warn('* quagga onProcessed', result);
       if (result.boxes) {
         drawingCtx.clearRect(
           0,

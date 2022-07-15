@@ -29,12 +29,12 @@ export const Charts = ({ arrOfProducts }) => {
     labels: ['Wasted', 'Eaten'],
     datasets: [
       {
-        label: 'DUPA',
         data: [
           arrOfProducts.filter((el) => el.isWasted === true).length,
           arrOfProducts.filter((el) => el.isEaten === true).length,
         ],
-        backgroundColor: ['#f00', '#0f0'],
+
+        backgroundColor: ['#f33', '#3f3'],
         borderColor: ['rgba(100, 00, 00)', 'rgba(70, 256, 70)'],
         borderWidth: 3,
       },
@@ -46,10 +46,20 @@ export const Charts = ({ arrOfProducts }) => {
     plugins: {
       legend: {
         position: 'bottom',
+        labels: {
+          color: '#fff',
+          font: {
+            size: 20,
+          },
+        },
       },
       title: {
+        color: ['#fff'],
         display: true,
         text: 'Monthly',
+        font: {
+          size: 40,
+        },
       },
     },
   };
@@ -90,12 +100,16 @@ export const Charts = ({ arrOfProducts }) => {
       {
         label: 'Wasted',
         data: wastedGrouped,
-        backgroundColor: '#f00',
+        backgroundColor: '#f33',
+        borderColor: 'rgba(100, 00, 00)',
+        borderWidth: 2,
       },
       {
         label: 'Eaten',
         data: eatenGrouped,
-        backgroundColor: '#0f0',
+        backgroundColor: '#3f3',
+        borderColor: 'rgba(70, 256, 70)',
+        borderWidth: 2,
       },
     ],
   };
