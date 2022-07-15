@@ -39,7 +39,11 @@ export const ProductsList = ({ products, handleFlag }) => {
                   textAlign='left'
                 >
                   <Flex justifyContent={'space-between'}>
-                    <Box>{product.name}</Box>
+                    {now.getTime() > product.expireDate.toDate().getTime() ? (
+                      <Box color={'red.400'}>{product.name}</Box>
+                    ) : (
+                      <Box color={'white'}>{product.name}</Box>
+                    )}
                     {'    '}
                     <Box marginLeft={3} fontWeight={'extrabold'}>
                       {product.tag && product.tag.toUpperCase()}
