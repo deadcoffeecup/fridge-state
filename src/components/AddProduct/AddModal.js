@@ -40,14 +40,10 @@ export const AddModal = ({ setIsModalOpened, products, handleAdd }) => {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {!isScanning && (
+            {isScanning ? (
+              <AddByPhoto handleAdd={handleAdd} products={products} />
+            ) : (
               <AddForm handleAdd={handleAdd} products={products} />
-            )}
-
-            {isScanning && (
-              <>
-                <AddByPhoto handleAdd={handleAdd} products={products} />
-              </>
             )}
           </ModalBody>
 
@@ -57,7 +53,7 @@ export const AddModal = ({ setIsModalOpened, products, handleAdd }) => {
                 colorScheme={'teal'}
                 onClick={() => setIsScanning((prev) => !prev)}
               >
-                {!isScanning ? 'Scan' : 'Hide Scanner'}
+                {!isScanning ? 'Scan' : 'Close Scanner'}
               </Button>
             </Flex>
           </ModalFooter>
