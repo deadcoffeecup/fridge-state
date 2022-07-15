@@ -36,7 +36,6 @@ export const Dashboard = () => {
   const categoryRef = useRef();
 
   const [categoryArr, setCategoryArr] = useState([]);
-
   useEffect(() => {
     setCategoryArr((prev) => [
       ...new Set([...prev, ...new Set(products.map((el) => el.category))]),
@@ -86,6 +85,11 @@ export const Dashboard = () => {
       [mode]: true,
       removeFromFridgeTime: Timestamp.fromDate(new Date()),
     });
+    if (
+      products.filter((el) => el.category === product.category).length === false
+    ) {
+      setCategoryArr((prev) => prev.filter((el) => el !== product.category));
+    }
   };
 
   async function handleLogout() {
@@ -136,62 +140,63 @@ export const Dashboard = () => {
             Statistics
           </Button>
         </Flex>
-
-        <AddModal
-          setIsModalOpened={setIsModalOpened}
-          handleAdd={handleAdd}
-          products={products}
-        />
-        {products.length ? (
-          <Flex
-            flexDirection={'column'}
-            alignItems={'center'}
-            justifyContent={'center'}
+        <Center margin={5}>
+          <AddModal
+            setIsModalOpened={setIsModalOpened}
+            handleAdd={handleAdd}
+            products={products}
+          />
+        </Center>
+        <Flex
+          flexDirection={'column'}
+          alignItems={'center'}
+          justifyContent={'center'}
+        >
+          <Center
+            paddingBottom={2}
+            width={'100%'}
+            justifyContent={'space-between'}
           >
-            <Center
-              paddingBottom={2}
-              width={'90%'}
-              justifyContent={'space-between'}
+            <Button
+              colorScheme={'teal'}
+              size={'md'}
+              onClick={() =>
+                setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))
+              }
             >
-              <Button
-                colorScheme={'teal'}
-                size={'xs'}
-                onClick={() =>
-                  setOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))
-                }
-              >
-                Sorted{` `}
-                <Text margin={'1'} fontStyle={'oblique'}>
-                  {` `}
-                  {order}
-                </Text>
-                by date
-              </Button>
-              <Select
-                ref={categoryRef}
-                onChange={() => setCategoryFilter(categoryRef.current.value)}
-                maxWidth={'50%'}
-                placeholder='Select option'
-              >
-                {categoryArr.map((el) => (
-                  <option key={el} style={{ color: 'black' }} value={el}>
-                    {el}
-                  </option>
-                ))}
-              </Select>
-              <Button
-                colorScheme={'teal'}
-                size={'xs'}
-                onClick={() => setCategoryFilter('all')}
-              >
-                All
-              </Button>
-            </Center>
+              Sorted{` `}
+              <Text margin={'1'} fontStyle={'oblique'}>
+                {` `}
+                {order}
+              </Text>
+              by date
+            </Button>
+            <Select
+              ref={categoryRef}
+              onChange={() => setCategoryFilter(categoryRef.current.value)}
+              maxWidth={'50%'}
+              placeholder='Select option'
+            >
+              {categoryArr.map((el) => (
+                <option key={el} style={{ color: 'black' }} value={el}>
+                  {el}
+                </option>
+              ))}
+            </Select>
+            <Button
+              colorScheme={'teal'}
+              size={'md'}
+              onClick={() => setCategoryFilter('all')}
+            >
+              All
+            </Button>
+          </Center>
+          {products.length ? (
             <ProductsList handleFlag={handleFlag} products={products} />
-          </Flex>
-        ) : (
-          <NoProductsInfo text={'what u have in fridge'} />
-        )}
+          ) : (
+            <NoProductsInfo text={'what u have in fridge'} />
+          )}
+        </Flex>
       </Container>
     </Box>
   );
