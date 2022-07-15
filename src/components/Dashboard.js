@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   addDoc,
@@ -11,7 +11,15 @@ import {
   where,
   orderBy,
 } from 'firebase/firestore';
-import { Button, Box, Text, Flex, Center, Container } from '@chakra-ui/react';
+import {
+  Button,
+  Box,
+  Text,
+  Flex,
+  Center,
+  Container,
+  Select,
+} from '@chakra-ui/react';
 
 import { db } from '../firebaseConfig';
 import { useAuth } from '../context/AuthContext';
@@ -25,6 +33,15 @@ export const Dashboard = () => {
   const [order, setOrder] = useState('asc');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const categoryRef = useRef();
+
+  const [categoryArr, setCategoryArr] = useState([]);
+
+  useEffect(() => {
+    setCategoryArr((prev) => [
+      ...new Set([...prev, ...new Set(products.map((el) => el.category))]),
+    ]);
+  }, [products]);
 
   const { logout, currentUser } = useAuth();
   const navigate = useNavigate();
@@ -150,34 +167,18 @@ export const Dashboard = () => {
                 </Text>
                 by date
               </Button>
-              <Button
-                colorScheme={'teal'}
-                size={'xs'}
-                onClick={() => setCategoryFilter('meat')}
+              <Select
+                ref={categoryRef}
+                onChange={() => setCategoryFilter(categoryRef.current.value)}
+                maxWidth={'50%'}
+                placeholder='Select option'
               >
-                Meat
-              </Button>
-              <Button
-                colorScheme={'teal'}
-                size={'xs'}
-                onClick={() => setCategoryFilter('diary')}
-              >
-                Diary
-              </Button>
-              <Button
-                colorScheme={'teal'}
-                size={'xs'}
-                onClick={() => setCategoryFilter('vegetables')}
-              >
-                Vege
-              </Button>
-              <Button
-                colorScheme={'teal'}
-                size={'xs'}
-                onClick={() => setCategoryFilter('fruits')}
-              >
-                Fruits
-              </Button>
+                {categoryArr.map((el) => (
+                  <option key={el} style={{ color: 'black' }} value={el}>
+                    {el}
+                  </option>
+                ))}
+              </Select>
               <Button
                 colorScheme={'teal'}
                 size={'xs'}
