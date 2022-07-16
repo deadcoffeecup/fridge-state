@@ -86,7 +86,7 @@ export const Dashboard = () => {
       removeFromFridgeTime: Timestamp.fromDate(new Date()),
     });
     if (
-      products.filter((el) => el.category === product.category).length === false
+      products.filter((el) => el.category === product.category).length === 1
     ) {
       setCategoryArr((prev) => prev.filter((el) => el !== product.category));
     }

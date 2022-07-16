@@ -19,7 +19,6 @@ export default function AddBtn({ categoryRef, nameRef, tag, setTag }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [error, setError] = useState('');
   const okRef = useRef();
-
   return (
     <>
       <Flex
@@ -39,9 +38,7 @@ export default function AddBtn({ categoryRef, nameRef, tag, setTag }) {
       >
         <Box>
           <Button
-            disabled={
-              !tag || !nameRef.current.value || !categoryRef.current.value
-            }
+            disabled={!tag}
             borderRadius={'xl'}
             size={'md'}
             colorScheme={'teal'}
