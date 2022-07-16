@@ -140,12 +140,6 @@ export const Charts = ({ arrOfProducts }) => {
     wastedGrouped[toMonthName(key)] = wastedGrouped[key];
     delete wastedGrouped[key];
   }
-  // const orderedWasted = Object.keys(wastedGrouped)
-  //   .sort()
-  //   .reduce((obj, key) => {
-  //     obj[key] = wastedGrouped[key];
-  //     return obj;
-  //   }, {});
 
   const eatenArr = arrOfProducts.filter((el) => el.isEaten === true);
   const eatenGrouped = _.groupBy(eatenArr, ({ removeFromFridgeTime }) =>
@@ -159,13 +153,6 @@ export const Charts = ({ arrOfProducts }) => {
     eatenGrouped[toMonthName(key)] = eatenGrouped[key];
     delete eatenGrouped[key];
   }
-
-  // const orderedEaten = Object.keys(eatenGrouped)
-  //   .sort()
-  //   .reduce((obj, key) => {
-  //     obj[key] = eatenGrouped[key];
-  //     return obj;
-  //   }, {});
 
   const barChartData = {
     datasets: [
@@ -206,10 +193,10 @@ export const Charts = ({ arrOfProducts }) => {
         >
           <Box
             margin={5}
-            maxHeight={400}
-            maxWidth={400}
-            height={'100%'}
-            width={'100%'}
+            maxHeight={300}
+            maxWidth={300}
+            height={'80%'}
+            width={'80%'}
           >
             <Doughnut options={doughnutChartoptions} data={doughnutChartData} />
           </Box>
@@ -217,8 +204,8 @@ export const Charts = ({ arrOfProducts }) => {
             marginBottom={5}
             maxheight={300}
             minWidth={350}
-            maxWidth={'90%'}
-            width={'100%'}
+            maxWidth={'95%'}
+            width={800}
           >
             <Bar options={barChartOptions} data={barChartData} />
           </Box>
