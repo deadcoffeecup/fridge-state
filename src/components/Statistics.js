@@ -47,7 +47,7 @@ export const Statistics = () => {
     );
 
     return unsubscribe;
-  }, [q]);
+  }, []);
 
   async function handleLogout() {
     try {
