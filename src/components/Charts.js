@@ -102,6 +102,32 @@ export const Charts = ({ arrOfProducts }) => {
       month: 'long',
     });
   };
+  function orderedByMonth(objNotSorted) {
+    const objSortedMonths = {};
+
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+
+    for (const month of monthNames) {
+      if (objNotSorted.hasOwnProperty(month)) {
+        objSortedMonths[month] = objNotSorted[month];
+      }
+    }
+
+    return objSortedMonths;
+  }
 
   const wastedArr = arrOfProducts.filter((el) => el.isWasted === true);
   const wastedGrouped = _.groupBy(wastedArr, ({ removeFromFridgeTime }) =>
@@ -110,16 +136,16 @@ export const Charts = ({ arrOfProducts }) => {
   for (const key in wastedGrouped) {
     wastedGrouped[key] = wastedGrouped[key].length;
   }
-  const orderedWasted = Object.keys(wastedGrouped)
-    .sort()
-    .reduce((obj, key) => {
-      obj[key] = wastedGrouped[key];
-      return obj;
-    }, {});
-  for (let key in orderedWasted) {
-    orderedWasted[toMonthName(key)] = wastedGrouped[key];
-    delete orderedWasted[key];
+  for (let key in wastedGrouped) {
+    wastedGrouped[toMonthName(key)] = wastedGrouped[key];
+    delete wastedGrouped[key];
   }
+  // const orderedWasted = Object.keys(wastedGrouped)
+  //   .sort()
+  //   .reduce((obj, key) => {
+  //     obj[key] = wastedGrouped[key];
+  //     return obj;
+  //   }, {});
 
   const eatenArr = arrOfProducts.filter((el) => el.isEaten === true);
   const eatenGrouped = _.groupBy(eatenArr, ({ removeFromFridgeTime }) =>
@@ -129,29 +155,30 @@ export const Charts = ({ arrOfProducts }) => {
     eatenGrouped[key] = eatenGrouped[key].length;
   }
 
-  const orderedEaten = Object.keys(eatenGrouped)
-    .sort()
-    .reduce((obj, key) => {
-      obj[key] = eatenGrouped[key];
-      return obj;
-    }, {});
-  for (let key in orderedEaten) {
-    orderedEaten[toMonthName(key)] = eatenGrouped[key];
-    delete orderedEaten[key];
+  for (let key in eatenGrouped) {
+    eatenGrouped[toMonthName(key)] = eatenGrouped[key];
+    delete eatenGrouped[key];
   }
+
+  // const orderedEaten = Object.keys(eatenGrouped)
+  //   .sort()
+  //   .reduce((obj, key) => {
+  //     obj[key] = eatenGrouped[key];
+  //     return obj;
+  //   }, {});
 
   const barChartData = {
     datasets: [
       {
         label: 'Wasted',
-        data: orderedWasted,
+        data: orderedByMonth(wastedGrouped),
         backgroundColor: '#f339',
         borderColor: 'rgba(100, 00, 00)',
         borderWidth: 2,
       },
       {
         label: 'Eaten',
-        data: orderedEaten,
+        data: orderedByMonth(eatenGrouped),
         backgroundColor: '#3f39',
         borderColor: 'rgba(70, 256, 70)',
         borderWidth: 2,
