@@ -91,6 +91,11 @@ export const Dashboard = () => {
       setCategoryArr((prev) => prev.filter((el) => el !== product.category));
     }
   };
+  const handleUpdate = (product) => {
+    setDoc(doc(db, 'users', currentUser.uid, 'products', product.id), {
+      ...product,
+    });
+  };
 
   async function handleLogout() {
     try {
@@ -154,7 +159,7 @@ export const Dashboard = () => {
         >
           <Center
             paddingBottom={2}
-            width={'100%'}
+            width={'90%'}
             justifyContent={'space-between'}
           >
             <Button
@@ -174,8 +179,8 @@ export const Dashboard = () => {
             <Select
               ref={categoryRef}
               onChange={() => setCategoryFilter(categoryRef.current.value)}
-              maxWidth={'50%'}
-              placeholder='Select option'
+              maxWidth={'40%'}
+              placeholder='Select filter'
             >
               {categoryArr.map((el) => (
                 <option key={el} style={{ color: 'black' }} value={el}>
@@ -192,7 +197,11 @@ export const Dashboard = () => {
             </Button>
           </Center>
           {products.length ? (
-            <ProductsList handleFlag={handleFlag} products={products} />
+            <ProductsList
+              handleUpdate={handleUpdate}
+              handleFlag={handleFlag}
+              products={products}
+            />
           ) : (
             <NoProductsInfo text={'what u have in fridge'} />
           )}

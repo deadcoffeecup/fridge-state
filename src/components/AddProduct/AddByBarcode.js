@@ -31,7 +31,7 @@ export const AddByBarcode = ({ results, handleAdd, products }) => {
       .then((json) => {
         json.status
           ? setProductFromAPI(json.product)
-          : console.warn('product not found');
+          : alert('product not found');
       })
       .catch((err) => console.warn(err));
   };
